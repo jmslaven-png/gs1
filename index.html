@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="GS Training">
+<title>GS · Nervous System Training</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+  :root {
+    --gold: #F0C060;
+    --red: #FF6B55;
+    --blue: #7EC8F0;
+    --bg: #0D0D0D;
+    --surface: rgba(255,255,255,0.06);
+    --border: rgba(255,255,255,0.18);
+    --text: rgba(255,255,255,0.97);
+    --muted: rgba(255,255,255,0.70);
+    --dim: rgba(255,255,255,0.45);
+  }
+
+  html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Courier New', monospace;
+    min-height: 100vh;
+    overscroll-behavior: none;
+  }
+
+  /* SCREENS */
+  .screen { display: none; min-height: 100vh; flex-direction: column; }
+  .screen.active { display: flex; }
+
+  /* HEADER */
+  .header {
+    border-bottom: 1px solid var(--border);
+    padding: 18px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    z-index: 10;
+  }
+  .header-label { font-size: 16px; letter-spacing: 0.2em; }
+  .header-sub { font-size: 21px; color: var(--dim); letter-spacing: 0.1em; margin-top: 3px; }
+
+  /* CONTENT */
+  .content {
+    flex: 1;
+    padding: 32px 24px;
+    max-width: 640px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  /* PROGRESS BAR */
+  .progress-bar { display: flex; gap: 4px; }
+  .progress-pip {
+    height: 2px;
+    flex: 1;
+    background: var(--border);
+    transition: background 0.3s;
+  }
+  .progress-pip.done { background: var(--accent); }
+
+  /* STEP */
+  .step-num {
+    font-size: 18px;
+    letter-spacing: 0.25em;
+    color: var(--accent);
+    opacity: 0.7;
+    margin-bottom: 6px;
+  }
+  .step-instruction {
+    font-family: Georgia, serif;
+    font-size: 16px;
+    color: rgba(255,255,255,0.68);
+    line-height: 1.9;
+    font-style: italic;
+    margin-bottom: 20px;
+    padding-left: 12px;
+    border-left: 1px solid var(--border);
+  }
+  .step-question {
+    font-family: Georgia, serif;
+    font-size: 21px;
+    color: var(--text);
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+
+  /* CHOICES */
+  .choices { display: flex; flex-direction: column; gap: 8px; margin-bottom: 28px; }
+  .choice-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 16px 18px;
+    text-align: left;
+    cursor: pointer;
+    font-family: 'Courier New', monospace;
+    font-size: 18px;
+    letter-spacing: 0.04em;
+    line-height: 1.6;
+    transition: all 0.18s;
+    -webkit-appearance: none;
+    width: 100%;
+  }
+  .choice-btn.selected {
+    background: rgba(var(--accent-rgb), 0.1);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .choice-letter { opacity: 0.4; margin-right: 10px; }
+
+  /* TEXTAREA */
+  .gs-textarea {
+    width: 100%;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-left: 2px solid var(--accent);
+    color: var(--text);
+    padding: 14px 16px;
+    font-family: 'Courier New', monospace;
+    font-size: 16px;
+    letter-spacing: 0.03em;
+    line-height: 1.8;
+    resize: none;
+    outline: none;
+    -webkit-appearance: none;
+    min-height: 120px;
+    margin-bottom: 28px;
+  }
+  .gs-textarea::placeholder { color: var(--dim); font-style: italic; }
+
+  /* NAV BUTTONS */
+  .nav-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 40px;
+  }
+  .btn-back {
+    background: transparent;
+    border: none;
+    color: var(--dim);
+    font-family: 'Courier New', monospace;
+    font-size: 21px;
+    letter-spacing: 0.15em;
+    cursor: pointer;
+    padding: 12px 0;
+    -webkit-appearance: none;
+  }
+  .btn-next {
+    background: var(--accent);
+    border: 1px solid var(--accent);
+    color: #000;
+    font-family: 'Courier New', monospace;
+    font-size: 21px;
+    letter-spacing: 0.2em;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 14px 28px;
+    transition: all 0.18s;
+    -webkit-appearance: none;
+  }
+  .btn-next:disabled {
+    background: transparent;
+    border-color: var(--border);
+    color: var(--dim);
+    cursor: not-allowed;
+    font-weight: 400;
+  }
+
+  /* HUB */
+  .hub-quote {
+    font-family: Georgia, serif;
+    font-size: 21px;
+    color: var(--dim);
+    font-style: italic;
+    line-height: 1.8;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .section-label {
+    font-size: 18px;
+    letter-spacing: 0.22em;
+    color: var(--dim);
+    margin-bottom: 12px;
+  }
+  .phase-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 22px;
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
+    -webkit-appearance: none;
+    margin-bottom: 10px;
+    transition: all 0.18s;
+    position: relative;
+  }
+  .phase-card.suggested {
+    border-color: var(--accent);
+    background: rgba(var(--accent-rgb), 0.05);
+  }
+  .phase-card-now {
+    position: absolute;
+    top: 12px; right: 14px;
+    font-size: 8px;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    opacity: 0.7;
+  }
+  .phase-card-id {
+    font-size: 18px;
+    letter-spacing: 0.25em;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .phase-card-title {
+    font-family: Georgia, serif;
+    font-size: 18px;
+    color: var(--text);
+    margin-bottom: 8px;
+    line-height: 1.5;
+  }
+  .phase-card-meta {
+    font-size: 18px;
+    color: var(--dim);
+    letter-spacing: 0.1em;
+  }
+  .phase-card-steps {
+    color: var(--accent);
+    opacity: 0.5;
+    margin-left: 14px;
+  }
+
+  /* COMPLETION */
+  .completion-label {
+    font-size: 18px;
+    letter-spacing: 0.3em;
+    color: var(--accent);
+    opacity: 0.6;
+    margin-bottom: 28px;
+    text-align: center;
+  }
+  .completion-title {
+    font-family: Georgia, serif;
+    font-size: 32px;
+    color: var(--text);
+    margin-bottom: 8px;
+    text-align: center;
+  }
+  .completion-sub {
+    font-family: Georgia, serif;
+    font-size: 16px;
+    color: var(--dim);
+    font-style: italic;
+    text-align: center;
+    margin-bottom: 36px;
+  }
+  .data-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 2px solid var(--accent);
+    padding: 20px;
+    margin-bottom: 28px;
+  }
+  .data-card-label {
+    font-size: 18px;
+    letter-spacing: 0.2em;
+    color: var(--dim);
+    margin-bottom: 14px;
+  }
+  .data-item {
+    font-size: 21px;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 6px;
+  }
+  .data-item-bullet { color: var(--accent); margin-right: 8px; }
+
+  /* HISTORY SCREEN */
+  .history-entry {
+    border: 1px solid var(--border);
+    padding: 18px;
+    margin-bottom: 10px;
+  }
+  .history-entry-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .history-phase-badge {
+    font-size: 18px;
+    letter-spacing: 0.2em;
+    padding: 3px 8px;
+    border: 1px solid;
+  }
+  .history-date {
+    font-size: 18px;
+    color: var(--dim);
+    letter-spacing: 0.08em;
+  }
+  .history-preview {
+    font-size: 21px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* EXPORT */
+  .export-box {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+    padding: 16px;
+    font-size: 21px;
+    color: var(--muted);
+    line-height: 1.8;
+    white-space: pre-wrap;
+    word-break: break-word;
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 16px;
+  }
+  .btn-primary {
+    background: var(--gold);
+    border: none;
+    color: #000;
+    font-family: 'Courier New', monospace;
+    font-size: 21px;
+    letter-spacing: 0.2em;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 14px 24px;
+    width: 100%;
+    margin-bottom: 10px;
+    -webkit-appearance: none;
+  }
+  .btn-secondary {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--dim);
+    font-family: 'Courier New', monospace;
+    font-size: 21px;
+    letter-spacing: 0.15em;
+    cursor: pointer;
+    padding: 12px 24px;
+    width: 100%;
+    -webkit-appearance: none;
+  }
+
+  /* REFERENCE */
+  .ref-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 8px;
+  }
+  .ref-item-term {
+    font-size: 16px;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.05em;
+  }
+  .ref-item-desc {
+    font-size: 18px;
+    color: var(--dim);
+    letter-spacing: 0.03em;
+    margin-top: 2px;
+  }
+
+  /* NAV TAB BAR */
+  .tab-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #0d0d0d;
+    border-top: 1px solid var(--border);
+    display: flex;
+    z-index: 100;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .tab-btn {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--dim);
+    font-family: 'Courier New', monospace;
+    font-size: 8px;
+    letter-spacing: 0.15em;
+    padding: 12px 4px 10px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    -webkit-appearance: none;
+  }
+  .tab-btn.active { color: var(--gold); }
+  .tab-icon { font-size: 16px; }
+
+  .spacer-bottom { height: 80px; }
+
+  /* TOAST */
+  .toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--gold);
+    color: #000;
+    font-family: 'Courier New', monospace;
+    font-size: 21px;
+    letter-spacing: 0.15em;
+    padding: 10px 20px;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+  .toast.show { opacity: 1; }
+</style>
+</head>
+<body>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- TAB BAR -->
+<div class="tab-bar" id="tabBar">
+  <button class="tab-btn active" onclick="showTab('hub')" id="tab-hub">
+    <span class="tab-icon">◎</span>HUB
+  </button>
+  <button class="tab-btn" onclick="showTab('history')" id="tab-history">
+    <span class="tab-icon">≡</span>LOG
+  </button>
+  <button class="tab-btn" onclick="showTab('export')" id="tab-export">
+    <span class="tab-icon">↑</span>EXPORT
+  </button>
+</div>
+
+<!-- ═══════════════ HUB SCREEN ═══════════════ -->
+<div class="screen active" id="screen-hub">
+  <div class="header">
+    <div>
+      <div class="header-label" style="color:var(--gold)">GS · NERVOUS SYSTEM TRAINING</div>
+      <div class="header-sub">KORZYBSKI · JOHNSON · PEMBERTON</div>
+    </div>
+    <div style="font-size:9px;color:var(--dim);letter-spacing:0.1em" id="hub-date"></div>
+  </div>
+  <div class="content">
+    <p class="hub-quote">"The map is not the territory. React to the territory."</p>
+
+    <div class="section-label" id="suggested-label">SUGGESTED NOW</div>
+
+    <button class="phase-card" id="card-morning" onclick="startPhase('morning')" style="--accent:var(--gold);--accent-rgb:200,169,110">
+      <span class="phase-card-now" id="now-morning" style="display:none">NOW ▸</span>
+      <div class="phase-card-id" style="color:var(--gold)">01 · MORNING CALIBRATION</div>
+      <div class="phase-card-title">Set your nervous system before the day sets it for you.</div>
+      <div class="phase-card-meta">Pre-activation · 4 minutes <span class="phase-card-steps" style="color:var(--gold)">5 steps</span></div>
+    </button>
+
+    <button class="phase-card" id="card-interrupt" onclick="startPhase('interrupt')" style="--accent:var(--red);--accent-rgb:224,92,75">
+      <span class="phase-card-now" id="now-interrupt" style="display:none">NOW ▸</span>
+      <div class="phase-card-id" style="color:var(--red)">02 · SIGNAL INTERRUPT</div>
+      <div class="phase-card-title">Catch the signal reaction. Engage the symbol reaction.</div>
+      <div class="phase-card-meta">In-the-moment · Deploy immediately <span class="phase-card-steps" style="color:var(--red)">5 steps</span></div>
+    </button>
+
+    <button class="phase-card" id="card-evening" onclick="startPhase('evening')" style="--accent:var(--blue);--accent-rgb:110,158,200">
+      <span class="phase-card-now" id="now-evening" style="display:none">NOW ▸</span>
+      <div class="phase-card-id" style="color:var(--blue)">03 · SEMANTIC AUTOPSY</div>
+      <div class="phase-card-title">Reconstruct today's evaluation chain. Update the map.</div>
+      <div class="phase-card-meta">Evening · 8 minutes <span class="phase-card-steps" style="color:var(--blue)">8 steps</span></div>
+    </button>
+
+    <div style="margin-top:36px;padding-top:24px;border-top:1px solid var(--border)">
+      <div class="section-label">MECHANISMS BEING TRAINED</div>
+      <div class="ref-grid">
+        <div><div class="ref-item-term">Delayed reaction</div><div class="ref-item-desc">Signal → symbol shift</div></div>
+        <div><div class="ref-item-term">Optimal tonicity</div><div class="ref-item-desc">Somatic calibration</div></div>
+        <div><div class="ref-item-term">Consciousness of abstracting</div><div class="ref-item-desc">Map-level awareness</div></div>
+        <div><div class="ref-item-term">Extensional orientation</div><div class="ref-item-desc">Territory-first evaluation</div></div>
+        <div><div class="ref-item-term">IFD interruption</div><div class="ref-item-desc">Frozen evaluation update</div></div>
+        <div><div class="ref-item-term">Indexing</div><div class="ref-item-desc">Person₁ time₁ context₁</div></div>
+      </div>
+    </div>
+    <div class="spacer-bottom"></div>
+  </div>
+</div>
+
+<!-- ═══════════════ SESSION SCREEN ═══════════════ -->
+<div class="screen" id="screen-session">
+  <div class="header" id="session-header">
+    <div>
+      <div class="header-label" id="session-title"></div>
+      <div class="header-sub" id="session-sub"></div>
+    </div>
+    <div class="progress-bar" id="progress-bar" style="width:120px"></div>
+  </div>
+  <div class="content" id="session-content">
+    <div class="spacer-bottom"></div>
+  </div>
+</div>
+
+<!-- ═══════════════ HISTORY SCREEN ═══════════════ -->
+<div class="screen" id="screen-history">
+  <div class="header">
+    <div>
+      <div class="header-label" style="color:var(--gold)">SESSION LOG</div>
+      <div class="header-sub" id="history-count"></div>
+    </div>
+    <button onclick="clearHistory()" style="background:transparent;border:none;color:var(--dim);font-family:'Courier New',monospace;font-size:9px;letter-spacing:0.15em;cursor:pointer">CLEAR</button>
+  </div>
+  <div class="content" id="history-list">
+    <div class="spacer-bottom"></div>
+  </div>
+</div>
+
+<!-- ═══════════════ EXPORT SCREEN ═══════════════ -->
+<div class="screen" id="screen-export">
+  <div class="header">
+    <div>
+      <div class="header-label" style="color:var(--gold)">WEEKLY EXPORT</div>
+      <div class="header-sub">FOR CLAUDE ANALYSIS</div>
+    </div>
+  </div>
+  <div class="content">
+    <p style="font-family:Georgia,serif;font-size:13px;color:var(--muted);line-height:1.8;margin-bottom:24px;font-style:italic">
+      This exports your last 7 days of sessions as a formatted block. Copy it, open a new Claude conversation, paste it, and ask for your weekly GS report.
+    </p>
+    <div style="font-size:9px;letter-spacing:0.2em;color:var(--dim);margin-bottom:12px">EXPORT PREVIEW</div>
+    <div class="export-box" id="export-preview"></div>
+    <button class="btn-primary" onclick="copyExport()">COPY TO CLIPBOARD</button>
+    <button class="btn-secondary" onclick="shareExport()">SHARE / SEND TO NOTES</button>
+
+    <div style="margin-top:36px;padding-top:24px;border-top:1px solid var(--border)">
+      <div class="section-label">HOW TO USE WITH CLAUDE</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.9">
+        1. Tap <strong style="color:var(--text)">COPY TO CLIPBOARD</strong> above<br>
+        2. Open the Claude app<br>
+        3. Start a new message in your GS project<br>
+        4. Paste the export<br>
+        5. Add: <span style="color:var(--gold)">"Build my weekly GS report — pattern analysis, IFD tracking, signal reaction trends, and one specific training focus for next week."</span>
+      </div>
+    </div>
+    <div class="spacer-bottom"></div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════
+// DATA
+// ═══════════════════════════════════════════════
+
+const MORNING_STEPS = [
+  {
+    id: "tonicity", label: "SOMATIC BASELINE",
+    instruction: "Before any word — scan the body. Place one hand on your sternum. Notice jaw, shoulders, gut. You are not assessing feelings. You are locating tension.",
+    question: "Where is excess tension right now?",
+    type: "multi",
+    options: ["Jaw / face","Throat","Chest / sternum","Gut","Shoulders","Nowhere notable"]
+  },
+  {
+    id: "abstraction", label: "ABSTRACTION AUDIT",
+    instruction: "What level are you waking up inside? Most mornings the mind arrives already three or four abstractions above any actual territory.",
+    question: "My mind arrived this morning at...",
+    type: "single",
+    options: [
+      "Event level — present, sensory, here",
+      "Object level — thinking about specific things",
+      "Label level — running narratives about those things",
+      "High abstraction — worrying about categories not here yet"
+    ]
+  },
+  {
+    id: "frozen", label: "FROZEN EVALUATION CHECK",
+    instruction: "A frozen evaluation is a map you stopped updating. It runs automatically. It feels like reality. It is not.",
+    question: "Is any frozen evaluation already active this morning?",
+    type: "text",
+    placeholder: "Example: 'I already know how today will go.' / 'That person is going to...' / 'I can't...'  Write the actual words your nervous system is running."
+  },
+  {
+    id: "ifd", label: "IFD SCAN",
+    instruction: "Johnson's pattern: Idealization → Frustration → Demoralization. It runs below the surface. Catch it before it runs the day.",
+    question: "On my most important current project, I am closest to...",
+    type: "single",
+    options: [
+      "Idealization (calibrated) — clear, realistic picture of what's needed",
+      "Idealization (uncalibrated) — high standard, not checked against current reality",
+      "Frustration — the gap feels personal, like deficiency",
+      "Demoralization — I've stopped believing the gap can close"
+    ]
+  },
+  {
+    id: "intention", label: "EXTENSIONAL INTENTION",
+    instruction: "Not a goal. Not an affirmation. One observable, specific behavior — indexed to today — that represents extensional orientation in action.",
+    question: "Today I will practice delayed reaction specifically when...",
+    type: "text",
+    placeholder: "Be specific. Name the situation, person, or trigger. 'When _____, instead of reacting, I will _____.' "
+  }
+];
+
+const INTERRUPT_STEPS = [
+  {
+    id: "territory", label: "SIGNAL REACTION CAUGHT",
+    question: "What just happened? (Territory only — no story yet)",
+    type: "text",
+    placeholder: "Facts. Observable. Who/what/when. No interpretation."
+  },
+  {
+    id: "somatic", label: "SOMATIC READ",
+    question: "Where did you feel it first — before thought?",
+    type: "multi",
+    options: ["Jaw tightened","Chest tightened","Gut reaction","Shoulders rose","Breath shortened","Heat in face/neck"]
+  },
+  {
+    id: "mapcheck", label: "MAP vs TERRITORY",
+    question: "Am I reacting to what actually happened, or to my map of it?",
+    type: "single",
+    options: [
+      "Territory — I observed something specific that warrants this response",
+      "Map — I'm reacting to what this means, not what it is",
+      "Old map — this triggered a pattern from a different time/person/situation",
+      "Uncertain — I don't know yet"
+    ]
+  },
+  {
+    id: "delay", label: "DELAY PROTOCOL",
+    question: "What is the minimum delay before I respond?",
+    type: "single",
+    options: [
+      "I can respond now — I've evaluated",
+      "10 minutes",
+      "1 hour",
+      "End of day",
+      "This doesn't require a response"
+    ]
+  },
+  {
+    id: "revised", label: "REVISED RESPONSE",
+    question: "If I respond from symbol reaction instead of signal reaction, what do I actually say or do?",
+    type: "text",
+    placeholder: "Specific words or actions. Not an intention — the actual response."
+  }
+];
+
+const EVENING_STEPS = [
+  {
+    id: "event", label: "SEMANTIC AUTOPSY — EVENT",
+    instruction: "Choose one moment from today where your evaluation and the territory diverged. Not the worst moment — the most instructive one.",
+    question: "Describe the event — territory only:",
+    type: "text",
+    placeholder: "What actually happened. Observable. No 'because' or 'which means' yet."
+  },
+  {
+    id: "mapran", label: "RECONSTRUCT THE MAP",
+    instruction: "What did your nervous system tell you was happening? This is the map you were actually running.",
+    question: "The story I told myself was...",
+    type: "text",
+    placeholder: "First person. Present tense. What it meant, what it said about you/them, what it predicted."
+  },
+  {
+    id: "diverge", label: "LOCATE THE DIVERGENCE",
+    question: "Where exactly did the map leave the territory?",
+    type: "single",
+    options: [
+      "At the event — I misread what actually happened",
+      "At the label — I named it something that triggered a larger pattern",
+      "At inference — I jumped from fact to conclusion without evidence",
+      "At generalization — I applied a past map to a present situation",
+      "At identity — I made it about who I/they am, not what happened"
+    ]
+  },
+  {
+    id: "correction", label: "MAP CORRECTION",
+    question: "What is a more accurate map — one accounting for what was actually observable?",
+    type: "text",
+    placeholder: "Rewrite the event with the correction applied. Specific, indexed, dated."
+  },
+  {
+    id: "signalcount", label: "SIGNAL REACTION LOG",
+    question: "How many signal reactions (undelayed, stereotyped) did I catch today?",
+    type: "single",
+    options: ["0 — didn't catch any (awareness gap, not absence)","1–2","3–5","5+ (high-activation day)"]
+  },
+  {
+    id: "delaycount", label: "DELAYED REACTION LOG",
+    question: "How many times did I successfully delay and evaluate before responding?",
+    type: "single",
+    options: ["0","1–2","3–5","5+ (strong day)"]
+  },
+  {
+    id: "closing", label: "CLOSING SOMATIC CHECK",
+    instruction: "Thalamo-cortical integration. The body and cortex must close together. Does your nervous system load match today's actual territory?",
+    question: "My nervous system is carrying...",
+    type: "single",
+    options: [
+      "Accurate load — matches what actually happened today",
+      "Excess load — carrying more tension than today's events warrant",
+      "Residual activation — something from earlier is still running",
+      "Appropriate ease — today's evaluations closed cleanly"
+    ]
+  },
+  {
+    id: "tomorrow", label: "TOMORROW'S INDEX",
+    instruction: "One specific, dated, indexed statement about tomorrow. Not an aspiration — a calibration.",
+    question: "Tomorrow, in [specific context], I will practice...",
+    type: "text",
+    placeholder: "Delayed reaction before responding to ___. / Dropping to object level when I notice ___ happening. / Checking my map against territory when I feel ___."
+  }
+];
+
+const PHASES = {
+  morning: { label: "MORNING CALIBRATION", sub: "Pre-activation · 4 minutes", accent: "#C8A96E", accentRgb: "200,169,110", steps: MORNING_STEPS },
+  interrupt: { label: "SIGNAL INTERRUPT", sub: "In-the-moment · Deploy immediately", accent: "#E05C4B", accentRgb: "224,92,75", steps: INTERRUPT_STEPS },
+  evening: { label: "SEMANTIC AUTOPSY", sub: "Evening · 8 minutes", accent: "#6E9EC8", accentRgb: "110,158,200", steps: EVENING_STEPS }
+};
+
+// ═══════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════
+
+let currentPhase = null;
+let currentStep = 0;
+let currentAnswers = {};
+let currentTab = 'hub';
+
+// ═══════════════════════════════════════════════
+// STORAGE
+// ═══════════════════════════════════════════════
+
+function getSessions() {
+  try { return JSON.parse(localStorage.getItem('gs_sessions') || '[]'); }
+  catch(e) { return []; }
+}
+
+function saveSession(phase, answers) {
+  const sessions = getSessions();
+  sessions.push({
+    id: Date.now(),
+    phase,
+    timestamp: new Date().toISOString(),
+    answers
+  });
+  localStorage.setItem('gs_sessions', JSON.stringify(sessions));
+}
+
+function clearHistory() {
+  if (confirm('Clear all session data? This cannot be undone.')) {
+    localStorage.removeItem('gs_sessions');
+    renderHistory();
+    toast('History cleared');
+  }
+}
+
+// ═══════════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════════
+
+function showTab(tab) {
+  currentTab = tab;
+  ['hub','history','export'].forEach(t => {
+    document.getElementById('screen-' + t).classList.toggle('active', t === tab);
+    document.getElementById('tab-' + t).classList.toggle('active', t === tab);
+  });
+  document.getElementById('screen-session').classList.remove('active');
+  document.getElementById('tabBar').style.display = 'flex';
+
+  if (tab === 'history') renderHistory();
+  if (tab === 'export') renderExport();
+}
+
+function startPhase(phase) {
+  currentPhase = phase;
+  currentStep = 0;
+  currentAnswers = {};
+
+  const cfg = PHASES[phase];
+  document.getElementById('session-title').textContent = cfg.label;
+  document.getElementById('session-title').style.color = cfg.accent;
+  document.getElementById('session-sub').textContent = cfg.sub;
+
+  document.getElementById('screen-hub').classList.remove('active');
+  document.getElementById('screen-history').classList.remove('active');
+  document.getElementById('screen-export').classList.remove('active');
+  document.getElementById('screen-session').classList.add('active');
+  document.getElementById('tabBar').style.display = 'none';
+
+  renderStep();
+}
+
+function exitSession() {
+  document.getElementById('screen-session').classList.remove('active');
+  document.getElementById('tabBar').style.display = 'flex';
+  showTab(currentTab || 'hub');
+}
+
+// ═══════════════════════════════════════════════
+// SESSION RENDERING
+// ═══════════════════════════════════════════════
+
+function renderStep() {
+  const cfg = PHASES[currentPhase];
+  const steps = cfg.steps;
+  const step = steps[currentStep];
+  const accent = cfg.accent;
+  const accentRgb = cfg.accentRgb;
+
+  // Progress bar
+  const pb = document.getElementById('progress-bar');
+  pb.innerHTML = steps.map((_, i) =>
+    `<div class="progress-pip ${i <= currentStep ? 'done' : ''}" style="${i <= currentStep ? '--accent:'+accent : ''}${i <= currentStep ? ';background:'+accent : ''}"></div>`
+  ).join('');
+
+  const val = currentAnswers[step.id];
+  const content = document.getElementById('session-content');
+
+  let inputHTML = '';
+  if (step.type === 'single' || step.type === 'multi') {
+    inputHTML = `<div class="choices" id="choices-container">` +
+      step.options.map((opt, i) => {
+        const isSelected = step.type === 'multi'
+          ? (Array.isArray(val) && val.includes(opt))
+          : val === opt;
+        return `<button class="choice-btn ${isSelected ? 'selected' : ''}"
+          style="${isSelected ? `background:rgba(${accentRgb},0.1);border-color:${accent};color:${accent}` : ''}"
+          data-index="${i}"
+          onclick="selectChoiceByIndex(${i})">
+          <span class="choice-letter">${String.fromCharCode(65+i)}.</span>${opt}
+        </button>`;
+      }).join('') + `</div>`;
+  } else {
+    inputHTML = `<textarea class="gs-textarea" id="text-input"
+      style="border-left-color:${accent}"
+      oninput="textChanged()">${val || ''}</textarea>`;
+  }
+
+  const hasVal = hasValue(step.id, step.type);
+
+  content.innerHTML = `
+    <div class="step-num">${String(currentStep+1).padStart(2,'0')} / ${String(steps.length).padStart(2,'0')} · ${step.label}</div>
+    ${step.instruction ? `<div class="step-instruction">${step.instruction}</div>` : ''}
+    <div class="step-question">${step.question}</div>
+    ${inputHTML}
+    <div class="nav-row">
+      <button class="btn-back" onclick="goBack()">← BACK</button>
+      <button class="btn-next" id="btn-next"
+        style="${hasVal ? `background:${accent};border-color:${accent}` : ''}"
+        onclick="goNext()" ${hasVal ? '' : 'disabled'}>
+        ${currentStep === steps.length - 1 ? 'CLOSE SESSION' : 'NEXT →'}
+      </button>
+    </div>
+    <div class="spacer-bottom"></div>
+  `;
+
+  // Set textarea placeholder safely via JS (avoids apostrophe issues in HTML attributes)
+  const ta = document.getElementById('text-input');
+  if (ta && step.placeholder) ta.placeholder = step.placeholder;
+
+  window.scrollTo(0, 0);
+}
+
+function hasValue(id, type) {
+  const val = currentAnswers[id];
+  if (val === undefined || val === null || val === '') return false;
+  if (type === 'multi' && Array.isArray(val) && val.length === 0) return false;
+  return true;
+}
+
+function selectChoiceByIndex(optIndex) {
+  const step = PHASES[currentPhase].steps[currentStep];
+  const opt = step.options[optIndex];
+  if (step.type === 'multi') {
+    const cur = Array.isArray(currentAnswers[step.id]) ? [...currentAnswers[step.id]] : [];
+    const idx = cur.indexOf(opt);
+    if (idx >= 0) cur.splice(idx, 1);
+    else cur.push(opt);
+    currentAnswers[step.id] = cur;
+  } else {
+    currentAnswers[step.id] = opt;
+  }
+  renderStep();
+}
+
+function textChanged() {
+  const ta = document.getElementById('text-input');
+  if (!ta) return;
+  const step = PHASES[currentPhase].steps[currentStep];
+  currentAnswers[step.id] = ta.value;
+  const btn = document.getElementById('btn-next');
+  const cfg = PHASES[currentPhase];
+  if (ta.value.trim()) {
+    btn.disabled = false;
+    btn.style.background = cfg.accent;
+    btn.style.borderColor = cfg.accent;
+    btn.style.color = '#000';
+    btn.style.fontWeight = '700';
+  } else {
+    btn.disabled = true;
+    btn.style.background = 'transparent';
+    btn.style.borderColor = 'var(--border)';
+    btn.style.color = 'var(--dim)';
+    btn.style.fontWeight = '400';
+  }
+}
+
+function goNext() {
+  const steps = PHASES[currentPhase].steps;
+  if (currentStep < steps.length - 1) {
+    currentStep++;
+    renderStep();
+  } else {
+    // Save and show completion
+    saveSession(currentPhase, { ...currentAnswers });
+    renderCompletion();
+  }
+}
+
+function goBack() {
+  if (currentStep > 0) {
+    currentStep--;
+    renderStep();
+  } else {
+    exitSession();
+  }
+}
+
+// ═══════════════════════════════════════════════
+// COMPLETION
+// ═══════════════════════════════════════════════
+
+function renderCompletion() {
+  const cfg = PHASES[currentPhase];
+  const accent = cfg.accent;
+
+  const titles = { morning: 'Calibrated.', interrupt: 'Evaluated.', evening: 'Integrated.' };
+  const subs = {
+    morning: 'The nervous system is set. The day begins from territory.',
+    interrupt: 'Signal reaction interrupted. Symbol reaction engaged.',
+    evening: 'The map has been updated. Tomorrow starts more accurate.'
+  };
+
+  // Build data points
+  const ans = currentAnswers;
+  let dataItems = [];
+  if (currentPhase === 'morning') {
+    if (ans.frozen) dataItems.push(`Frozen eval noted: "${ans.frozen.slice(0,55)}..."`);
+    if (ans.ifd) dataItems.push(`IFD position: ${ans.ifd.slice(0,50)}`);
+    if (ans.intention) dataItems.push(`Today's practice: ${ans.intention.slice(0,55)}...`);
+  } else if (currentPhase === 'interrupt') {
+    if (ans.mapcheck) dataItems.push(`Map status: ${ans.mapcheck}`);
+    if (ans.delay) dataItems.push(`Response protocol: ${ans.delay}`);
+    if (ans.revised) dataItems.push('Revised response staged.');
+  } else {
+    if (ans.signalcount) dataItems.push(`Signal reactions caught: ${ans.signalcount}`);
+    if (ans.delaycount) dataItems.push(`Delayed reactions: ${ans.delaycount}`);
+    if (ans.closing) dataItems.push(`Closing state: ${ans.closing}`);
+  }
+
+  document.getElementById('progress-bar').innerHTML = '';
+
+  document.getElementById('session-content').innerHTML = `
+    <div class="completion-label">SESSION CLOSED · SAVED</div>
+    <div class="completion-title">${titles[currentPhase]}</div>
+    <div class="completion-sub">${subs[currentPhase]}</div>
+    ${dataItems.length ? `
+    <div class="data-card" style="border-left-color:${accent}">
+      <div class="data-card-label">SESSION DATA</div>
+      ${dataItems.map(d => `<div class="data-item"><span class="data-item-bullet" style="color:${accent}">▸</span>${d}</div>`).join('')}
+    </div>` : ''}
+    <button class="btn-primary" style="background:${accent}" onclick="exitSession()">RETURN TO HUB</button>
+    <div class="spacer-bottom"></div>
+  `;
+  window.scrollTo(0, 0);
+}
+
+// ═══════════════════════════════════════════════
+// HISTORY
+// ═══════════════════════════════════════════════
+
+function renderHistory() {
+  const sessions = getSessions().reverse();
+  const el = document.getElementById('history-list');
+  document.getElementById('history-count').textContent = sessions.length + ' sessions stored';
+
+  if (!sessions.length) {
+    el.innerHTML = `<div style="font-family:Georgia,serif;font-size:14px;color:var(--dim);font-style:italic;text-align:center;margin-top:60px">No sessions yet.<br>Complete your first session to begin the log.</div><div class="spacer-bottom"></div>`;
+    return;
+  }
+
+  const phaseColors = { morning: '#C8A96E', interrupt: '#E05C4B', evening: '#6E9EC8' };
+  const phaseNames = { morning: 'MORNING', interrupt: 'INTERRUPT', evening: 'EVENING' };
+
+  el.innerHTML = sessions.map(s => {
+    const d = new Date(s.timestamp);
+    const dateStr = d.toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric' }).toUpperCase();
+    const timeStr = d.toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit' });
+    const color = phaseColors[s.phase];
+
+    // Preview — first meaningful text answer
+    let preview = '';
+    const ans = s.answers || {};
+    const textKeys = Object.keys(ans).filter(k => typeof ans[k] === 'string' && ans[k].length > 10);
+    if (textKeys.length) preview = ans[textKeys[0]].slice(0, 80) + '...';
+
+    return `<div class="history-entry">
+      <div class="history-entry-header">
+        <span class="history-phase-badge" style="color:${color};border-color:${color}">${phaseNames[s.phase]}</span>
+        <span class="history-date">${dateStr} · ${timeStr}</span>
+      </div>
+      ${preview ? `<div class="history-preview">${preview}</div>` : ''}
+    </div>`;
+  }).join('') + '<div class="spacer-bottom"></div>';
+}
+
+// ═══════════════════════════════════════════════
+// EXPORT
+// ═══════════════════════════════════════════════
+
+function buildExportText() {
+  const sessions = getSessions();
+  const cutoff = Date.now() - (7 * 24 * 60 * 60 * 1000);
+  const week = sessions.filter(s => s.id >= cutoff);
+
+  if (!week.length) return 'No sessions in the last 7 days.';
+
+  const phaseNames = { morning: 'MORNING CALIBRATION', interrupt: 'SIGNAL INTERRUPT', evening: 'SEMANTIC AUTOPSY' };
+  const stepLabels = {};
+  [...MORNING_STEPS, ...INTERRUPT_STEPS, ...EVENING_STEPS].forEach(s => { stepLabels[s.id] = s.label; });
+
+  let out = `GS NERVOUS SYSTEM TRAINING · WEEKLY EXPORT\n`;
+  out += `Generated: ${new Date().toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' })}\n`;
+  out += `Sessions this week: ${week.length}\n`;
+  out += `${'═'.repeat(50)}\n\n`;
+
+  week.forEach((s, i) => {
+    const d = new Date(s.timestamp);
+    const dateStr = d.toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric' });
+    const timeStr = d.toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit' });
+    out += `SESSION ${i+1}: ${phaseNames[s.phase]}\n`;
+    out += `${dateStr} at ${timeStr}\n`;
+    out += `${'─'.repeat(40)}\n`;
+
+    const ans = s.answers || {};
+    Object.entries(ans).forEach(([key, val]) => {
+      const label = stepLabels[key] || key.toUpperCase();
+      out += `\n[${label}]\n`;
+      if (Array.isArray(val)) out += val.join(', ') + '\n';
+      else out += val + '\n';
+    });
+    out += '\n';
+  });
+
+  out += `${'═'.repeat(50)}\n`;
+  out += `PASTE THIS INTO CLAUDE AND REQUEST:\n`;
+  out += `"Build my weekly GS report — pattern analysis, IFD tracking, signal reaction trends, which frozen evaluations recurred, and one specific training focus for next week."\n`;
+
+  return out;
+}
+
+function renderExport() {
+  const text = buildExportText();
+  document.getElementById('export-preview').textContent = text;
+}
+
+function copyExport() {
+  const text = buildExportText();
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(() => toast('Copied to clipboard'));
+  } else {
+    // Fallback for older iOS
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.top = '-9999px';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    try { document.execCommand('copy'); toast('Copied to clipboard'); }
+    catch(e) { toast('Copy failed — use Share instead'); }
+    document.body.removeChild(ta);
+  }
+}
+
+function shareExport() {
+  const text = buildExportText();
+  if (navigator.share) {
+    navigator.share({ title: 'GS Weekly Export', text }).catch(() => {});
+  } else {
+    copyExport();
+  }
+}
+
+// ═══════════════════════════════════════════════
+// TOAST
+// ═══════════════════════════════════════════════
+
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2200);
+}
+
+// ═══════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════
+
+function init() {
+  const now = new Date();
+  const hour = now.getHours();
+  const dateStr = now.toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric' }).toUpperCase();
+  document.getElementById('hub-date').textContent = dateStr;
+
+  // Suggest phase by time
+  let suggested = hour < 10 ? 'morning' : hour >= 18 ? 'evening' : null;
+  if (suggested) {
+    document.getElementById('now-' + suggested).style.display = 'block';
+    document.getElementById('card-' + suggested).classList.add('suggested');
+    if (suggested === 'morning') {
+      document.getElementById('card-morning').style.setProperty('--accent', 'var(--gold)');
+    } else {
+      document.getElementById('card-evening').style.setProperty('--accent', 'var(--blue)');
+    }
+  } else {
+    document.getElementById('suggested-label').textContent = 'INTERRUPT AVAILABLE ANYTIME';
+    document.getElementById('now-interrupt').style.display = 'block';
+    document.getElementById('card-interrupt').classList.add('suggested');
+  }
+}
+
+init();
+</script>
+</body>
+</html>
