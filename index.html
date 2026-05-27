@@ -4,22 +4,26 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="GS Training">
 <title>GS · Nervous System Training</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
   :root {
-    --gold: #F0C060;
-    --red: #FF6B55;
-    --blue: #7EC8F0;
-    --bg: #0D0D0D;
-    --surface: rgba(255,255,255,0.06);
-    --border: rgba(255,255,255,0.18);
-    --text: rgba(255,255,255,0.97);
-    --muted: rgba(255,255,255,0.70);
-    --dim: rgba(255,255,255,0.45);
+    --gold: #B07A1E;
+    --gold-bright: #C8902C;
+    --red: #C0392B;
+    --blue: #2B6CA3;
+    --green: #2E7D4F;
+    --bg: #F4F1EA;
+    --surface: #FFFFFF;
+    --surface-2: #FBF9F4;
+    --border: #C9C2B0;
+    --border-strong: #A89E86;
+    --text: #1A1814;
+    --muted: #4A453C;
+    --dim: #847C6C;
   }
 
   html, body {
@@ -36,7 +40,7 @@
 
   /* HEADER */
   .header {
-    border-bottom: 1px solid var(--border);
+    border-bottom: 2px solid var(--border-strong);
     padding: 18px 24px;
     display: flex;
     justify-content: space-between;
@@ -46,8 +50,8 @@
     background: var(--bg);
     z-index: 10;
   }
-  .header-label { font-size: 16px; letter-spacing: 0.2em; }
-  .header-sub { font-size: 21px; color: var(--dim); letter-spacing: 0.1em; margin-top: 3px; }
+  .header-label { font-size: 16px; letter-spacing: 0.18em; font-weight: 700; }
+  .header-sub { font-size: 13px; color: var(--dim); letter-spacing: 0.1em; margin-top: 4px; }
 
   /* CONTENT */
   .content {
@@ -61,75 +65,77 @@
   /* PROGRESS BAR */
   .progress-bar { display: flex; gap: 4px; }
   .progress-pip {
-    height: 2px;
+    height: 3px;
     flex: 1;
     background: var(--border);
     transition: background 0.3s;
   }
-  .progress-pip.done { background: var(--accent); }
 
   /* STEP */
   .step-num {
-    font-size: 18px;
-    letter-spacing: 0.25em;
+    font-size: 12px;
+    letter-spacing: 0.2em;
     color: var(--accent);
-    opacity: 0.7;
-    margin-bottom: 6px;
+    font-weight: 700;
+    margin-bottom: 10px;
   }
   .step-instruction {
     font-family: Georgia, serif;
-    font-size: 16px;
-    color: rgba(255,255,255,0.68);
-    line-height: 1.9;
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.8;
     font-style: italic;
     margin-bottom: 20px;
-    padding-left: 12px;
-    border-left: 1px solid var(--border);
+    padding: 12px 14px;
+    background: var(--surface-2);
+    border-left: 3px solid var(--accent);
   }
   .step-question {
     font-family: Georgia, serif;
     font-size: 21px;
     color: var(--text);
-    line-height: 1.6;
+    line-height: 1.55;
     margin-bottom: 24px;
+    font-weight: 700;
   }
 
   /* CHOICES */
   .choices { display: flex; flex-direction: column; gap: 8px; margin-bottom: 28px; }
   .choice-btn {
-    background: transparent;
-    border: 1px solid var(--border);
+    background: var(--surface);
+    border: 1.5px solid var(--border-strong);
     color: var(--muted);
     padding: 16px 18px;
     text-align: left;
     cursor: pointer;
     font-family: 'Courier New', monospace;
-    font-size: 18px;
-    letter-spacing: 0.04em;
-    line-height: 1.6;
-    transition: all 0.18s;
+    font-size: 16px;
+    letter-spacing: 0.02em;
+    line-height: 1.55;
+    transition: all 0.15s;
     -webkit-appearance: none;
     width: 100%;
   }
   .choice-btn.selected {
-    background: rgba(var(--accent-rgb), 0.1);
+    background: var(--accent);
     border-color: var(--accent);
-    color: var(--accent);
+    color: #FFFFFF;
+    font-weight: 700;
   }
-  .choice-letter { opacity: 0.4; margin-right: 10px; }
+  .choice-letter { opacity: 0.55; margin-right: 10px; font-weight: 700; }
 
   /* TEXTAREA */
   .gs-textarea {
     width: 100%;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid var(--border);
-    border-left: 2px solid var(--accent);
+    background: var(--surface);
+    border: 1.5px solid var(--border-strong);
+    border-left: 4px solid var(--accent);
     color: var(--text);
     padding: 14px 16px;
     font-family: 'Courier New', monospace;
     font-size: 16px;
-    letter-spacing: 0.03em;
-    line-height: 1.8;
+    letter-spacing: 0.02em;
+    line-height: 1.7;
     resize: none;
     outline: none;
     -webkit-appearance: none;
@@ -137,6 +143,24 @@
     margin-bottom: 28px;
   }
   .gs-textarea::placeholder { color: var(--dim); font-style: italic; }
+  .gs-textarea:focus { border-left-width: 6px; }
+
+  /* SHORT INPUT */
+  .gs-input {
+    width: 100%;
+    background: var(--surface);
+    border: 1.5px solid var(--border-strong);
+    border-left: 4px solid var(--accent);
+    color: var(--text);
+    padding: 14px 16px;
+    font-family: 'Courier New', monospace;
+    font-size: 16px;
+    letter-spacing: 0.02em;
+    outline: none;
+    -webkit-appearance: none;
+    margin-bottom: 28px;
+  }
+  .gs-input::placeholder { color: var(--dim); font-style: italic; }
 
   /* NAV BUTTONS */
   .nav-row {
@@ -150,27 +174,28 @@
     border: none;
     color: var(--dim);
     font-family: 'Courier New', monospace;
-    font-size: 21px;
-    letter-spacing: 0.15em;
+    font-size: 15px;
+    letter-spacing: 0.12em;
     cursor: pointer;
     padding: 12px 0;
+    font-weight: 700;
     -webkit-appearance: none;
   }
   .btn-next {
     background: var(--accent);
-    border: 1px solid var(--accent);
-    color: #000;
+    border: 1.5px solid var(--accent);
+    color: #FFFFFF;
     font-family: 'Courier New', monospace;
-    font-size: 21px;
-    letter-spacing: 0.2em;
+    font-size: 15px;
+    letter-spacing: 0.15em;
     font-weight: 700;
     cursor: pointer;
-    padding: 14px 28px;
-    transition: all 0.18s;
+    padding: 15px 28px;
+    transition: all 0.15s;
     -webkit-appearance: none;
   }
   .btn-next:disabled {
-    background: transparent;
+    background: var(--surface);
     border-color: var(--border);
     color: var(--dim);
     cursor: not-allowed;
@@ -180,115 +205,123 @@
   /* HUB */
   .hub-quote {
     font-family: Georgia, serif;
-    font-size: 21px;
-    color: var(--dim);
+    font-size: 18px;
+    color: var(--muted);
     font-style: italic;
-    line-height: 1.8;
+    line-height: 1.7;
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 36px;
   }
   .section-label {
-    font-size: 18px;
-    letter-spacing: 0.22em;
+    font-size: 12px;
+    letter-spacing: 0.2em;
     color: var(--dim);
-    margin-bottom: 12px;
+    font-weight: 700;
+    margin-bottom: 14px;
   }
   .phase-card {
     background: var(--surface);
-    border: 1px solid var(--border);
+    border: 1.5px solid var(--border-strong);
     padding: 22px;
     cursor: pointer;
     text-align: left;
     width: 100%;
     -webkit-appearance: none;
     margin-bottom: 10px;
-    transition: all 0.18s;
+    transition: all 0.15s;
     position: relative;
+    box-shadow: 2px 2px 0 var(--border);
   }
   .phase-card.suggested {
     border-color: var(--accent);
-    background: rgba(var(--accent-rgb), 0.05);
+    border-width: 2px;
+    box-shadow: 3px 3px 0 var(--accent);
   }
   .phase-card-now {
     position: absolute;
-    top: 12px; right: 14px;
-    font-size: 8px;
-    letter-spacing: 0.2em;
+    top: 14px; right: 16px;
+    font-size: 10px;
+    letter-spacing: 0.18em;
     color: var(--accent);
-    opacity: 0.7;
+    font-weight: 700;
   }
   .phase-card-id {
-    font-size: 18px;
-    letter-spacing: 0.25em;
+    font-size: 13px;
+    letter-spacing: 0.18em;
     color: var(--accent);
+    font-weight: 700;
     margin-bottom: 8px;
   }
   .phase-card-title {
     font-family: Georgia, serif;
-    font-size: 18px;
+    font-size: 17px;
     color: var(--text);
     margin-bottom: 8px;
-    line-height: 1.5;
+    line-height: 1.45;
   }
   .phase-card-meta {
-    font-size: 18px;
+    font-size: 13px;
     color: var(--dim);
-    letter-spacing: 0.1em;
+    letter-spacing: 0.05em;
   }
   .phase-card-steps {
     color: var(--accent);
-    opacity: 0.5;
-    margin-left: 14px;
+    font-weight: 700;
+    margin-left: 12px;
   }
 
   /* COMPLETION */
   .completion-label {
-    font-size: 18px;
-    letter-spacing: 0.3em;
+    font-size: 12px;
+    letter-spacing: 0.25em;
     color: var(--accent);
-    opacity: 0.6;
+    font-weight: 700;
     margin-bottom: 28px;
     text-align: center;
   }
   .completion-title {
     font-family: Georgia, serif;
-    font-size: 32px;
+    font-size: 34px;
     color: var(--text);
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     text-align: center;
+    font-weight: 700;
   }
   .completion-sub {
     font-family: Georgia, serif;
     font-size: 16px;
-    color: var(--dim);
+    color: var(--muted);
     font-style: italic;
     text-align: center;
     margin-bottom: 36px;
+    line-height: 1.6;
   }
   .data-card {
     background: var(--surface);
-    border: 1px solid var(--border);
-    border-left: 2px solid var(--accent);
+    border: 1.5px solid var(--border-strong);
+    border-left: 4px solid var(--accent);
     padding: 20px;
     margin-bottom: 28px;
   }
   .data-card-label {
-    font-size: 18px;
-    letter-spacing: 0.2em;
+    font-size: 12px;
+    letter-spacing: 0.18em;
     color: var(--dim);
+    font-weight: 700;
     margin-bottom: 14px;
   }
   .data-item {
-    font-size: 21px;
+    font-size: 15px;
     color: var(--muted);
-    line-height: 1.8;
-    margin-bottom: 6px;
+    line-height: 1.7;
+    margin-bottom: 8px;
   }
-  .data-item-bullet { color: var(--accent); margin-right: 8px; }
+  .data-item-bullet { color: var(--accent); margin-right: 8px; font-weight: 700; }
 
   /* HISTORY SCREEN */
   .history-entry {
-    border: 1px solid var(--border);
+    background: var(--surface);
+    border: 1.5px solid var(--border-strong);
     padding: 18px;
     margin-bottom: 10px;
   }
@@ -296,32 +329,35 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
+    align-items: center;
   }
   .history-phase-badge {
-    font-size: 18px;
-    letter-spacing: 0.2em;
-    padding: 3px 8px;
-    border: 1px solid;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    font-weight: 700;
+    padding: 4px 9px;
+    border: 1.5px solid;
+    color: #FFFFFF;
   }
   .history-date {
-    font-size: 18px;
+    font-size: 12px;
     color: var(--dim);
-    letter-spacing: 0.08em;
+    letter-spacing: 0.06em;
   }
   .history-preview {
-    font-size: 21px;
+    font-size: 15px;
     color: var(--muted);
-    line-height: 1.7;
+    line-height: 1.6;
   }
 
   /* EXPORT */
   .export-box {
-    background: rgba(255,255,255,0.02);
-    border: 1px solid var(--border);
+    background: var(--surface);
+    border: 1.5px solid var(--border-strong);
     padding: 16px;
-    font-size: 21px;
+    font-size: 13px;
     color: var(--muted);
-    line-height: 1.8;
+    line-height: 1.7;
     white-space: pre-wrap;
     word-break: break-word;
     max-height: 300px;
@@ -330,27 +366,28 @@
   }
   .btn-primary {
     background: var(--gold);
-    border: none;
-    color: #000;
+    border: 1.5px solid var(--gold);
+    color: #FFFFFF;
     font-family: 'Courier New', monospace;
-    font-size: 21px;
-    letter-spacing: 0.2em;
+    font-size: 15px;
+    letter-spacing: 0.15em;
     font-weight: 700;
     cursor: pointer;
-    padding: 14px 24px;
+    padding: 15px 24px;
     width: 100%;
     margin-bottom: 10px;
     -webkit-appearance: none;
   }
   .btn-secondary {
-    background: transparent;
-    border: 1px solid var(--border);
-    color: var(--dim);
+    background: var(--surface);
+    border: 1.5px solid var(--border-strong);
+    color: var(--muted);
     font-family: 'Courier New', monospace;
-    font-size: 21px;
-    letter-spacing: 0.15em;
+    font-size: 15px;
+    letter-spacing: 0.12em;
+    font-weight: 700;
     cursor: pointer;
-    padding: 12px 24px;
+    padding: 14px 24px;
     width: 100%;
     -webkit-appearance: none;
   }
@@ -359,19 +396,20 @@
   .ref-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 12px;
+    gap: 14px;
     margin-top: 8px;
   }
   .ref-item-term {
-    font-size: 16px;
-    color: rgba(255,255,255,0.4);
-    letter-spacing: 0.05em;
+    font-size: 14px;
+    color: var(--text);
+    letter-spacing: 0.03em;
+    font-weight: 700;
   }
   .ref-item-desc {
-    font-size: 18px;
+    font-size: 13px;
     color: var(--dim);
-    letter-spacing: 0.03em;
-    margin-top: 2px;
+    letter-spacing: 0.02em;
+    margin-top: 3px;
   }
 
   /* NAV TAB BAR */
@@ -380,8 +418,8 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background: #0d0d0d;
-    border-top: 1px solid var(--border);
+    background: var(--surface);
+    border-top: 2px solid var(--border-strong);
     display: flex;
     z-index: 100;
     padding-bottom: env(safe-area-inset-bottom);
@@ -392,8 +430,9 @@
     border: none;
     color: var(--dim);
     font-family: 'Courier New', monospace;
-    font-size: 8px;
-    letter-spacing: 0.15em;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    font-weight: 700;
     padding: 12px 4px 10px;
     cursor: pointer;
     display: flex;
@@ -403,7 +442,7 @@
     -webkit-appearance: none;
   }
   .tab-btn.active { color: var(--gold); }
-  .tab-icon { font-size: 16px; }
+  .tab-icon { font-size: 17px; }
 
   .spacer-bottom { height: 80px; }
 
@@ -413,12 +452,13 @@
     top: 20px;
     left: 50%;
     transform: translateX(-50%);
-    background: var(--gold);
-    color: #000;
+    background: var(--text);
+    color: var(--bg);
     font-family: 'Courier New', monospace;
-    font-size: 21px;
-    letter-spacing: 0.15em;
-    padding: 10px 20px;
+    font-size: 14px;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    padding: 12px 22px;
     z-index: 1000;
     opacity: 0;
     transition: opacity 0.3s;
@@ -452,35 +492,42 @@
       <div class="header-label" style="color:var(--gold)">GS · NERVOUS SYSTEM TRAINING</div>
       <div class="header-sub">KORZYBSKI · JOHNSON · PEMBERTON</div>
     </div>
-    <div style="font-size:9px;color:var(--dim);letter-spacing:0.1em" id="hub-date"></div>
+    <div style="font-size:11px;color:var(--dim);letter-spacing:0.08em;font-weight:700" id="hub-date"></div>
   </div>
   <div class="content">
     <p class="hub-quote">"The map is not the territory. React to the territory."</p>
 
     <div class="section-label" id="suggested-label">SUGGESTED NOW</div>
 
-    <button class="phase-card" id="card-morning" onclick="startPhase('morning')" style="--accent:var(--gold);--accent-rgb:200,169,110">
+    <button class="phase-card" id="card-morning" onclick="startPhase('morning')" style="--accent:#B07A1E">
       <span class="phase-card-now" id="now-morning" style="display:none">NOW ▸</span>
-      <div class="phase-card-id" style="color:var(--gold)">01 · MORNING CALIBRATION</div>
-      <div class="phase-card-title">Set your nervous system before the day sets it for you.</div>
-      <div class="phase-card-meta">Pre-activation · 4 minutes <span class="phase-card-steps" style="color:var(--gold)">5 steps</span></div>
+      <div class="phase-card-id">01 · MORNING CALIBRATION</div>
+      <div class="phase-card-title">Set your nervous system — and load one clean task entry — before the day sets it for you.</div>
+      <div class="phase-card-meta">Pre-activation · 5 minutes <span class="phase-card-steps">8 steps</span></div>
     </button>
 
-    <button class="phase-card" id="card-interrupt" onclick="startPhase('interrupt')" style="--accent:var(--red);--accent-rgb:224,92,75">
+    <button class="phase-card" id="card-interrupt" onclick="startPhase('interrupt')" style="--accent:#C0392B">
       <span class="phase-card-now" id="now-interrupt" style="display:none">NOW ▸</span>
-      <div class="phase-card-id" style="color:var(--red)">02 · SIGNAL INTERRUPT</div>
+      <div class="phase-card-id">02 · SIGNAL INTERRUPT</div>
       <div class="phase-card-title">Catch the signal reaction. Engage the symbol reaction.</div>
-      <div class="phase-card-meta">In-the-moment · Deploy immediately <span class="phase-card-steps" style="color:var(--red)">5 steps</span></div>
+      <div class="phase-card-meta">In-the-moment · Deploy immediately <span class="phase-card-steps">5 steps</span></div>
     </button>
 
-    <button class="phase-card" id="card-evening" onclick="startPhase('evening')" style="--accent:var(--blue);--accent-rgb:110,158,200">
+    <button class="phase-card" id="card-record" onclick="startPhase('record')" style="--accent:#2E7D4F">
+      <span class="phase-card-now" id="now-record" style="display:none">NOW ▸</span>
+      <div class="phase-card-id">04 · COMPLETION RECORD</div>
+      <div class="phase-card-title">A task is finished. Log the evidence — predicted cost vs. actual.</div>
+      <div class="phase-card-meta">After any completion · 2 minutes <span class="phase-card-steps">5 steps</span></div>
+    </button>
+
+    <button class="phase-card" id="card-evening" onclick="startPhase('evening')" style="--accent:#2B6CA3">
       <span class="phase-card-now" id="now-evening" style="display:none">NOW ▸</span>
-      <div class="phase-card-id" style="color:var(--blue)">03 · SEMANTIC AUTOPSY</div>
+      <div class="phase-card-id">03 · SEMANTIC AUTOPSY</div>
       <div class="phase-card-title">Reconstruct today's evaluation chain. Update the map.</div>
-      <div class="phase-card-meta">Evening · 8 minutes <span class="phase-card-steps" style="color:var(--blue)">8 steps</span></div>
+      <div class="phase-card-meta">Evening · 8 minutes <span class="phase-card-steps">8 steps</span></div>
     </button>
 
-    <div style="margin-top:36px;padding-top:24px;border-top:1px solid var(--border)">
+    <div style="margin-top:36px;padding-top:24px;border-top:2px solid var(--border-strong)">
       <div class="section-label">MECHANISMS BEING TRAINED</div>
       <div class="ref-grid">
         <div><div class="ref-item-term">Delayed reaction</div><div class="ref-item-desc">Signal → symbol shift</div></div>
@@ -488,7 +535,7 @@
         <div><div class="ref-item-term">Consciousness of abstracting</div><div class="ref-item-desc">Map-level awareness</div></div>
         <div><div class="ref-item-term">Extensional orientation</div><div class="ref-item-desc">Territory-first evaluation</div></div>
         <div><div class="ref-item-term">IFD interruption</div><div class="ref-item-desc">Frozen evaluation update</div></div>
-        <div><div class="ref-item-term">Indexing</div><div class="ref-item-desc">Person₁ time₁ context₁</div></div>
+        <div><div class="ref-item-term">Completion evidence</div><div class="ref-item-desc">Predicted vs. actual cost</div></div>
       </div>
     </div>
     <div class="spacer-bottom"></div>
@@ -516,7 +563,7 @@
       <div class="header-label" style="color:var(--gold)">SESSION LOG</div>
       <div class="header-sub" id="history-count"></div>
     </div>
-    <button onclick="clearHistory()" style="background:transparent;border:none;color:var(--dim);font-family:'Courier New',monospace;font-size:9px;letter-spacing:0.15em;cursor:pointer">CLEAR</button>
+    <button onclick="clearHistory()" style="background:transparent;border:none;color:var(--dim);font-family:'Courier New',monospace;font-size:11px;letter-spacing:0.12em;font-weight:700;cursor:pointer">CLEAR</button>
   </div>
   <div class="content" id="history-list">
     <div class="spacer-bottom"></div>
@@ -532,22 +579,22 @@
     </div>
   </div>
   <div class="content">
-    <p style="font-family:Georgia,serif;font-size:13px;color:var(--muted);line-height:1.8;margin-bottom:24px;font-style:italic">
+    <p style="font-family:Georgia,serif;font-size:15px;color:var(--muted);line-height:1.7;margin-bottom:24px;font-style:italic">
       This exports your last 7 days of sessions as a formatted block. Copy it, open a new Claude conversation, paste it, and ask for your weekly GS report.
     </p>
-    <div style="font-size:9px;letter-spacing:0.2em;color:var(--dim);margin-bottom:12px">EXPORT PREVIEW</div>
+    <div style="font-size:12px;letter-spacing:0.18em;color:var(--dim);font-weight:700;margin-bottom:12px">EXPORT PREVIEW</div>
     <div class="export-box" id="export-preview"></div>
     <button class="btn-primary" onclick="copyExport()">COPY TO CLIPBOARD</button>
     <button class="btn-secondary" onclick="shareExport()">SHARE / SEND TO NOTES</button>
 
-    <div style="margin-top:36px;padding-top:24px;border-top:1px solid var(--border)">
+    <div style="margin-top:36px;padding-top:24px;border-top:2px solid var(--border-strong)">
       <div class="section-label">HOW TO USE WITH CLAUDE</div>
-      <div style="font-size:12px;color:var(--muted);line-height:1.9">
+      <div style="font-size:14px;color:var(--muted);line-height:1.9">
         1. Tap <strong style="color:var(--text)">COPY TO CLIPBOARD</strong> above<br>
         2. Open the Claude app<br>
         3. Start a new message in your GS project<br>
         4. Paste the export<br>
-        5. Add: <span style="color:var(--gold)">"Build my weekly GS report — pattern analysis, IFD tracking, signal reaction trends, and one specific training focus for next week."</span>
+        5. Add: <span style="color:var(--gold);font-weight:700">"Build my weekly GS report — pattern analysis, IFD tracking, signal reaction trends, completion evidence, and one specific training focus for next week."</span>
       </div>
     </div>
     <div class="spacer-bottom"></div>
@@ -603,7 +650,28 @@ const MORNING_STEPS = [
     instruction: "Not a goal. Not an affirmation. One observable, specific behavior — indexed to today — that represents extensional orientation in action.",
     question: "Today I will practice delayed reaction specifically when...",
     type: "text",
-    placeholder: "Be specific. Name the situation, person, or trigger. 'When _____, instead of reacting, I will _____.' "
+    placeholder: "Be specific. Name the situation, person, or trigger. 'When _____, instead of reacting, I will _____.'"
+  },
+  {
+    id: "keystone", label: "KEYSTONE TASK",
+    instruction: "Not the list. One task. The one that, if completed today, makes the day a win. Naming one task starves the pre-anticipation scan of the whole category it feeds on.",
+    question: "Today's ONE keystone task is...",
+    type: "short",
+    placeholder: "One task. Specific. Nameable."
+  },
+  {
+    id: "stoppoint", label: "STOPPING POINT",
+    instruction: "An undefined task is, to the threat system, an infinite task — and it returns 'overwhelming' by default. Define the end in observable terms and the task becomes finite, assessable, honest.",
+    question: "This task is done when what is physically, observably true?",
+    type: "short",
+    placeholder: "Done when ______. Observable. Not 'when it's good enough.'"
+  },
+  {
+    id: "firstaction", label: "FIRST PHYSICAL ACTION",
+    instruction: "Not planning it. Not evaluating it. The smallest concrete physical move that begins it. Small enough that it does not require force to start.",
+    question: "The first physical action — the one I move on within 5 seconds — is...",
+    type: "short",
+    placeholder: "Open the file. Pick up the phone. Write one line."
   }
 ];
 
@@ -628,6 +696,7 @@ const INTERRUPT_STEPS = [
       "Territory — I observed something specific that warrants this response",
       "Map — I'm reacting to what this means, not what it is",
       "Old map — this triggered a pattern from a different time/person/situation",
+      "Generated scenario — I am reacting to a story, not territory that exists yet",
       "Uncertain — I don't know yet"
     ]
   },
@@ -648,6 +717,64 @@ const INTERRUPT_STEPS = [
     question: "If I respond from symbol reaction instead of signal reaction, what do I actually say or do?",
     type: "text",
     placeholder: "Specific words or actions. Not an intention — the actual response."
+  }
+];
+
+const RECORD_STEPS = [
+  {
+    id: "taskname", label: "NAME — WHAT WAS PRODUCED",
+    instruction: "A task is complete. Record it while the territory is fresh. This runs once per completed task — every completion is a separate piece of evidence.",
+    question: "What specifically did I produce?",
+    type: "short",
+    placeholder: "Object-level. Observable. Not 'worked on' — what now exists."
+  },
+  {
+    id: "predicted", label: "PREDICTED COST",
+    instruction: "Before you started, the pre-anticipation scan made a prediction. Recall it honestly.",
+    question: "Before starting, what did my nervous system predict this would cost — in energy, difficulty, or dread?",
+    type: "single",
+    options: [
+      "Predicted severe — I expected this to be draining or hard",
+      "Predicted moderate — I expected real resistance",
+      "Predicted light — I expected it to be manageable",
+      "No prediction — I entered before the scan loaded"
+    ]
+  },
+  {
+    id: "actual", label: "ACTUAL COST",
+    instruction: "Now the territory. What did it actually cost, once you were in it?",
+    question: "What did completing it actually cost?",
+    type: "single",
+    options: [
+      "Actual severe — it genuinely was draining",
+      "Actual moderate — real but manageable",
+      "Actual light — far less than it felt beforehand",
+      "Actual near-zero — once moving, there was almost no cost"
+    ]
+  },
+  {
+    id: "emotion", label: "EMOTION — WHAT COMPLETION PRODUCED",
+    instruction: "The distinction that matters: self-building energy that powers the private self — or only the quiet of an alarm switched off.",
+    question: "What did finishing this actually produce in me?",
+    type: "single",
+    options: [
+      "Self-building energy — it fed the private self",
+      "Quiet satisfaction — clean, settled, complete",
+      "Mere relief — only the alarm going off, nothing built",
+      "Neutral — it was a task I likely should not have been doing"
+    ]
+  },
+  {
+    id: "value", label: "VALUE — WHOSE PATH",
+    instruction: "Korzybski's map-territory question turned on your own goals. Not every stall is pathology — some stalls correctly signal a borrowed task.",
+    question: "Did this task serve a path I have chosen — or one I inherited or assumed?",
+    type: "single",
+    options: [
+      "Chosen — this serves a path that is genuinely mine",
+      "Mostly chosen — mine, with some inherited weight",
+      "Inherited — I am doing this because I assumed I should",
+      "Unsure — worth examining"
+    ]
   }
 ];
 
@@ -718,9 +845,10 @@ const EVENING_STEPS = [
 ];
 
 const PHASES = {
-  morning: { label: "MORNING CALIBRATION", sub: "Pre-activation · 4 minutes", accent: "#C8A96E", accentRgb: "200,169,110", steps: MORNING_STEPS },
-  interrupt: { label: "SIGNAL INTERRUPT", sub: "In-the-moment · Deploy immediately", accent: "#E05C4B", accentRgb: "224,92,75", steps: INTERRUPT_STEPS },
-  evening: { label: "SEMANTIC AUTOPSY", sub: "Evening · 8 minutes", accent: "#6E9EC8", accentRgb: "110,158,200", steps: EVENING_STEPS }
+  morning: { label: "MORNING CALIBRATION", sub: "Pre-activation · 5 minutes", accent: "#B07A1E", steps: MORNING_STEPS },
+  interrupt: { label: "SIGNAL INTERRUPT", sub: "In-the-moment · Deploy immediately", accent: "#C0392B", steps: INTERRUPT_STEPS },
+  record: { label: "COMPLETION RECORD", sub: "After any completion · 2 minutes", accent: "#2E7D4F", steps: RECORD_STEPS },
+  evening: { label: "SEMANTIC AUTOPSY", sub: "Evening · 8 minutes", accent: "#2B6CA3", steps: EVENING_STEPS }
 };
 
 // ═══════════════════════════════════════════════
@@ -811,12 +939,11 @@ function renderStep() {
   const steps = cfg.steps;
   const step = steps[currentStep];
   const accent = cfg.accent;
-  const accentRgb = cfg.accentRgb;
 
   // Progress bar
   const pb = document.getElementById('progress-bar');
   pb.innerHTML = steps.map((_, i) =>
-    `<div class="progress-pip ${i <= currentStep ? 'done' : ''}" style="${i <= currentStep ? '--accent:'+accent : ''}${i <= currentStep ? ';background:'+accent : ''}"></div>`
+    `<div class="progress-pip" style="${i <= currentStep ? 'background:'+accent : ''}"></div>`
   ).join('');
 
   const val = currentAnswers[step.id];
@@ -830,12 +957,17 @@ function renderStep() {
           ? (Array.isArray(val) && val.includes(opt))
           : val === opt;
         return `<button class="choice-btn ${isSelected ? 'selected' : ''}"
-          style="${isSelected ? `background:rgba(${accentRgb},0.1);border-color:${accent};color:${accent}` : ''}"
+          style="${isSelected ? `background:${accent};border-color:${accent}` : ''}"
           data-index="${i}"
           onclick="selectChoiceByIndex(${i})">
           <span class="choice-letter">${String.fromCharCode(65+i)}.</span>${opt}
         </button>`;
       }).join('') + `</div>`;
+  } else if (step.type === 'short') {
+    inputHTML = `<input type="text" class="gs-input" id="text-input"
+      style="border-left-color:${accent}"
+      value="${val ? String(val).replace(/"/g,'&quot;') : ''}"
+      oninput="textChanged()">`;
   } else {
     inputHTML = `<textarea class="gs-textarea" id="text-input"
       style="border-left-color:${accent}"
@@ -845,14 +977,14 @@ function renderStep() {
   const hasVal = hasValue(step.id, step.type);
 
   content.innerHTML = `
-    <div class="step-num">${String(currentStep+1).padStart(2,'0')} / ${String(steps.length).padStart(2,'0')} · ${step.label}</div>
-    ${step.instruction ? `<div class="step-instruction">${step.instruction}</div>` : ''}
+    <div class="step-num" style="color:${accent}">${String(currentStep+1).padStart(2,'0')} / ${String(steps.length).padStart(2,'0')} · ${step.label}</div>
+    ${step.instruction ? `<div class="step-instruction" style="border-left-color:${accent}">${step.instruction}</div>` : ''}
     <div class="step-question">${step.question}</div>
     ${inputHTML}
     <div class="nav-row">
       <button class="btn-back" onclick="goBack()">← BACK</button>
       <button class="btn-next" id="btn-next"
-        style="${hasVal ? `background:${accent};border-color:${accent}` : ''}"
+        style="${hasVal ? `background:${accent};border-color:${accent};color:#FFF` : ''}"
         onclick="goNext()" ${hasVal ? '' : 'disabled'}>
         ${currentStep === steps.length - 1 ? 'CLOSE SESSION' : 'NEXT →'}
       </button>
@@ -860,7 +992,7 @@ function renderStep() {
     <div class="spacer-bottom"></div>
   `;
 
-  // Set textarea placeholder safely via JS (avoids apostrophe issues in HTML attributes)
+  // Set placeholder safely via JS (avoids apostrophe issues in HTML attributes)
   const ta = document.getElementById('text-input');
   if (ta && step.placeholder) ta.placeholder = step.placeholder;
 
@@ -871,6 +1003,7 @@ function hasValue(id, type) {
   const val = currentAnswers[id];
   if (val === undefined || val === null || val === '') return false;
   if (type === 'multi' && Array.isArray(val) && val.length === 0) return false;
+  if ((type === 'text' || type === 'short') && typeof val === 'string' && !val.trim()) return false;
   return true;
 }
 
@@ -900,11 +1033,11 @@ function textChanged() {
     btn.disabled = false;
     btn.style.background = cfg.accent;
     btn.style.borderColor = cfg.accent;
-    btn.style.color = '#000';
+    btn.style.color = '#FFF';
     btn.style.fontWeight = '700';
   } else {
     btn.disabled = true;
-    btn.style.background = 'transparent';
+    btn.style.background = 'var(--surface)';
     btn.style.borderColor = 'var(--border)';
     btn.style.color = 'var(--dim)';
     btn.style.fontWeight = '400';
@@ -917,7 +1050,6 @@ function goNext() {
     currentStep++;
     renderStep();
   } else {
-    // Save and show completion
     saveSession(currentPhase, { ...currentAnswers });
     renderCompletion();
   }
@@ -940,24 +1072,28 @@ function renderCompletion() {
   const cfg = PHASES[currentPhase];
   const accent = cfg.accent;
 
-  const titles = { morning: 'Calibrated.', interrupt: 'Evaluated.', evening: 'Integrated.' };
+  const titles = { morning: 'Calibrated.', interrupt: 'Evaluated.', record: 'Recorded.', evening: 'Integrated.' };
   const subs = {
-    morning: 'The nervous system is set. The day begins from territory.',
+    morning: 'The nervous system is set. The day begins from territory — with one task entry already loaded.',
     interrupt: 'Signal reaction interrupted. Symbol reaction engaged.',
+    record: 'Evidence logged. The frozen evaluation has one more contradiction to answer to.',
     evening: 'The map has been updated. Tomorrow starts more accurate.'
   };
 
-  // Build data points
   const ans = currentAnswers;
   let dataItems = [];
   if (currentPhase === 'morning') {
-    if (ans.frozen) dataItems.push(`Frozen eval noted: "${ans.frozen.slice(0,55)}..."`);
     if (ans.ifd) dataItems.push(`IFD position: ${ans.ifd.slice(0,50)}`);
-    if (ans.intention) dataItems.push(`Today's practice: ${ans.intention.slice(0,55)}...`);
+    if (ans.keystone) dataItems.push(`Keystone task: ${ans.keystone}`);
+    if (ans.firstaction) dataItems.push(`First action: ${ans.firstaction}`);
   } else if (currentPhase === 'interrupt') {
     if (ans.mapcheck) dataItems.push(`Map status: ${ans.mapcheck}`);
     if (ans.delay) dataItems.push(`Response protocol: ${ans.delay}`);
     if (ans.revised) dataItems.push('Revised response staged.');
+  } else if (currentPhase === 'record') {
+    if (ans.taskname) dataItems.push(`Produced: ${ans.taskname}`);
+    if (ans.predicted && ans.actual) dataItems.push(`Predicted ${shortCost(ans.predicted)} · Actual ${shortCost(ans.actual)}`);
+    if (ans.emotion) dataItems.push(`${ans.emotion.split(' — ')[0]}`);
   } else {
     if (ans.signalcount) dataItems.push(`Signal reactions caught: ${ans.signalcount}`);
     if (ans.delaycount) dataItems.push(`Delayed reactions: ${ans.delaycount}`);
@@ -975,10 +1111,19 @@ function renderCompletion() {
       <div class="data-card-label">SESSION DATA</div>
       ${dataItems.map(d => `<div class="data-item"><span class="data-item-bullet" style="color:${accent}">▸</span>${d}</div>`).join('')}
     </div>` : ''}
-    <button class="btn-primary" style="background:${accent}" onclick="exitSession()">RETURN TO HUB</button>
+    <button class="btn-primary" style="background:${accent};border-color:${accent}" onclick="exitSession()">RETURN TO HUB</button>
     <div class="spacer-bottom"></div>
   `;
   window.scrollTo(0, 0);
+}
+
+function shortCost(s) {
+  if (s.indexOf('severe') >= 0) return 'severe';
+  if (s.indexOf('moderate') >= 0) return 'moderate';
+  if (s.indexOf('light') >= 0) return 'light';
+  if (s.indexOf('near-zero') >= 0) return 'near-zero';
+  if (s.indexOf('No prediction') >= 0) return 'none';
+  return s;
 }
 
 // ═══════════════════════════════════════════════
@@ -991,28 +1136,27 @@ function renderHistory() {
   document.getElementById('history-count').textContent = sessions.length + ' sessions stored';
 
   if (!sessions.length) {
-    el.innerHTML = `<div style="font-family:Georgia,serif;font-size:14px;color:var(--dim);font-style:italic;text-align:center;margin-top:60px">No sessions yet.<br>Complete your first session to begin the log.</div><div class="spacer-bottom"></div>`;
+    el.innerHTML = `<div style="font-family:Georgia,serif;font-size:16px;color:var(--dim);font-style:italic;text-align:center;margin-top:60px">No sessions yet.<br>Complete your first session to begin the log.</div><div class="spacer-bottom"></div>`;
     return;
   }
 
-  const phaseColors = { morning: '#C8A96E', interrupt: '#E05C4B', evening: '#6E9EC8' };
-  const phaseNames = { morning: 'MORNING', interrupt: 'INTERRUPT', evening: 'EVENING' };
+  const phaseColors = { morning: '#B07A1E', interrupt: '#C0392B', record: '#2E7D4F', evening: '#2B6CA3' };
+  const phaseNames = { morning: 'MORNING', interrupt: 'INTERRUPT', record: 'RECORD', evening: 'EVENING' };
 
   el.innerHTML = sessions.map(s => {
     const d = new Date(s.timestamp);
     const dateStr = d.toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric' }).toUpperCase();
     const timeStr = d.toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit' });
-    const color = phaseColors[s.phase];
+    const color = phaseColors[s.phase] || '#847C6C';
 
-    // Preview — first meaningful text answer
     let preview = '';
     const ans = s.answers || {};
-    const textKeys = Object.keys(ans).filter(k => typeof ans[k] === 'string' && ans[k].length > 10);
-    if (textKeys.length) preview = ans[textKeys[0]].slice(0, 80) + '...';
+    const textKeys = Object.keys(ans).filter(k => typeof ans[k] === 'string' && ans[k].length > 6);
+    if (textKeys.length) preview = ans[textKeys[0]].slice(0, 80) + (ans[textKeys[0]].length > 80 ? '...' : '');
 
     return `<div class="history-entry">
       <div class="history-entry-header">
-        <span class="history-phase-badge" style="color:${color};border-color:${color}">${phaseNames[s.phase]}</span>
+        <span class="history-phase-badge" style="background:${color};border-color:${color}">${phaseNames[s.phase] || s.phase.toUpperCase()}</span>
         <span class="history-date">${dateStr} · ${timeStr}</span>
       </div>
       ${preview ? `<div class="history-preview">${preview}</div>` : ''}
@@ -1031,9 +1175,9 @@ function buildExportText() {
 
   if (!week.length) return 'No sessions in the last 7 days.';
 
-  const phaseNames = { morning: 'MORNING CALIBRATION', interrupt: 'SIGNAL INTERRUPT', evening: 'SEMANTIC AUTOPSY' };
+  const phaseNames = { morning: 'MORNING CALIBRATION', interrupt: 'SIGNAL INTERRUPT', record: 'COMPLETION RECORD', evening: 'SEMANTIC AUTOPSY' };
   const stepLabels = {};
-  [...MORNING_STEPS, ...INTERRUPT_STEPS, ...EVENING_STEPS].forEach(s => { stepLabels[s.id] = s.label; });
+  [...MORNING_STEPS, ...INTERRUPT_STEPS, ...RECORD_STEPS, ...EVENING_STEPS].forEach(s => { stepLabels[s.id] = s.label; });
 
   let out = `GS NERVOUS SYSTEM TRAINING · WEEKLY EXPORT\n`;
   out += `Generated: ${new Date().toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' })}\n`;
@@ -1044,7 +1188,7 @@ function buildExportText() {
     const d = new Date(s.timestamp);
     const dateStr = d.toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric' });
     const timeStr = d.toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit' });
-    out += `SESSION ${i+1}: ${phaseNames[s.phase]}\n`;
+    out += `SESSION ${i+1}: ${phaseNames[s.phase] || s.phase.toUpperCase()}\n`;
     out += `${dateStr} at ${timeStr}\n`;
     out += `${'─'.repeat(40)}\n`;
 
@@ -1060,7 +1204,7 @@ function buildExportText() {
 
   out += `${'═'.repeat(50)}\n`;
   out += `PASTE THIS INTO CLAUDE AND REQUEST:\n`;
-  out += `"Build my weekly GS report — pattern analysis, IFD tracking, signal reaction trends, which frozen evaluations recurred, and one specific training focus for next week."\n`;
+  out += `"Build my weekly GS report — pattern analysis, IFD tracking, signal reaction trends, completion evidence (predicted vs. actual cost), which frozen evaluations recurred, and one specific training focus for next week."\n`;
 
   return out;
 }
@@ -1075,7 +1219,6 @@ function copyExport() {
   if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(text).then(() => toast('Copied to clipboard'));
   } else {
-    // Fallback for older iOS
     const ta = document.createElement('textarea');
     ta.value = text;
     ta.style.position = 'fixed';
@@ -1119,20 +1262,16 @@ function init() {
   const dateStr = now.toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric' }).toUpperCase();
   document.getElementById('hub-date').textContent = dateStr;
 
-  // Suggest phase by time
   let suggested = hour < 10 ? 'morning' : hour >= 18 ? 'evening' : null;
   if (suggested) {
     document.getElementById('now-' + suggested).style.display = 'block';
     document.getElementById('card-' + suggested).classList.add('suggested');
-    if (suggested === 'morning') {
-      document.getElementById('card-morning').style.setProperty('--accent', 'var(--gold)');
-    } else {
-      document.getElementById('card-evening').style.setProperty('--accent', 'var(--blue)');
-    }
   } else {
-    document.getElementById('suggested-label').textContent = 'INTERRUPT AVAILABLE ANYTIME';
+    document.getElementById('suggested-label').textContent = 'INTERRUPT & RECORD AVAILABLE ANYTIME';
     document.getElementById('now-interrupt').style.display = 'block';
     document.getElementById('card-interrupt').classList.add('suggested');
+    document.getElementById('now-record').style.display = 'block';
+    document.getElementById('card-record').classList.add('suggested');
   }
 }
 
