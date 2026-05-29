@@ -12,18 +12,18 @@
 
   :root {
     --gold: #B07A1E;
-    --gold-bright: #C8902C;
     --red: #C0392B;
     --blue: #2B6CA3;
     --green: #2E7D4F;
-    --bg: #F4F1EA;
-    --surface: #FFFFFF;
-    --surface-2: #FBF9F4;
-    --border: #C9C2B0;
-    --border-strong: #A89E86;
+    --purple: #6B3FA0;
+    --bg: #E8E2D2;
+    --surface: #F5F0E2;
+    --surface-2: #EEE7D4;
+    --border: #B8AE92;
+    --border-strong: #968B6E;
     --text: #1A1814;
     --muted: #4A453C;
-    --dim: #847C6C;
+    --dim: #756C5A;
   }
 
   html, body {
@@ -34,11 +34,9 @@
     overscroll-behavior: none;
   }
 
-  /* SCREENS */
   .screen { display: none; min-height: 100vh; flex-direction: column; }
   .screen.active { display: flex; }
 
-  /* HEADER */
   .header {
     border-bottom: 2px solid var(--border-strong);
     padding: 18px 24px;
@@ -53,37 +51,23 @@
   .header-label { font-size: 16px; letter-spacing: 0.18em; font-weight: 700; }
   .header-sub { font-size: 13px; color: var(--dim); letter-spacing: 0.1em; margin-top: 4px; }
 
-  /* CONTENT */
   .content {
     flex: 1;
-    padding: 32px 24px;
+    padding: 28px 24px;
     max-width: 640px;
     width: 100%;
     margin: 0 auto;
   }
 
-  /* PROGRESS BAR */
   .progress-bar { display: flex; gap: 4px; }
-  .progress-pip {
-    height: 3px;
-    flex: 1;
-    background: var(--border);
-    transition: background 0.3s;
-  }
+  .progress-pip { height: 3px; flex: 1; background: var(--border); transition: background 0.3s; }
 
-  /* STEP */
-  .step-num {
-    font-size: 12px;
-    letter-spacing: 0.2em;
-    color: var(--accent);
-    font-weight: 700;
-    margin-bottom: 10px;
-  }
+  .step-num { font-size: 12px; letter-spacing: 0.2em; font-weight: 700; margin-bottom: 10px; }
   .step-instruction {
     font-family: Georgia, serif;
     font-size: 15px;
     color: var(--muted);
-    line-height: 1.8;
+    line-height: 1.75;
     font-style: italic;
     margin-bottom: 20px;
     padding: 12px 14px;
@@ -99,7 +83,6 @@
     font-weight: 700;
   }
 
-  /* CHOICES */
   .choices { display: flex; flex-direction: column; gap: 8px; margin-bottom: 28px; }
   .choice-btn {
     background: var(--surface);
@@ -116,15 +99,9 @@
     -webkit-appearance: none;
     width: 100%;
   }
-  .choice-btn.selected {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: #FFFFFF;
-    font-weight: 700;
-  }
+  .choice-btn.selected { color: #FFFFFF; font-weight: 700; }
   .choice-letter { opacity: 0.55; margin-right: 10px; font-weight: 700; }
 
-  /* TEXTAREA */
   .gs-textarea {
     width: 100%;
     background: var(--surface);
@@ -145,7 +122,6 @@
   .gs-textarea::placeholder { color: var(--dim); font-style: italic; }
   .gs-textarea:focus { border-left-width: 6px; }
 
-  /* SHORT INPUT */
   .gs-input {
     width: 100%;
     background: var(--surface);
@@ -162,13 +138,7 @@
   }
   .gs-input::placeholder { color: var(--dim); font-style: italic; }
 
-  /* NAV BUTTONS */
-  .nav-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 40px;
-  }
+  .nav-row { display: flex; justify-content: space-between; align-items: center; padding-bottom: 40px; }
   .btn-back {
     background: transparent;
     border: none;
@@ -202,15 +172,14 @@
     font-weight: 400;
   }
 
-  /* HUB */
   .hub-quote {
     font-family: Georgia, serif;
-    font-size: 18px;
+    font-size: 17px;
     color: var(--muted);
     font-style: italic;
     line-height: 1.7;
     text-align: center;
-    margin-bottom: 36px;
+    margin-bottom: 32px;
   }
   .section-label {
     font-size: 12px;
@@ -218,11 +187,13 @@
     color: var(--dim);
     font-weight: 700;
     margin-bottom: 14px;
+    margin-top: 28px;
   }
+  .section-label:first-child { margin-top: 0; }
   .phase-card {
     background: var(--surface);
     border: 1.5px solid var(--border-strong);
-    padding: 22px;
+    padding: 20px;
     cursor: pointer;
     text-align: left;
     width: 100%;
@@ -259,18 +230,76 @@
     margin-bottom: 8px;
     line-height: 1.45;
   }
-  .phase-card-meta {
-    font-size: 13px;
-    color: var(--dim);
-    letter-spacing: 0.05em;
+  .phase-card-meta { font-size: 13px; color: var(--dim); letter-spacing: 0.05em; }
+  .phase-card-steps { color: var(--accent); font-weight: 700; margin-left: 12px; }
+
+  .territory-today-card {
+    background: var(--surface);
+    border: 2px solid var(--purple);
+    box-shadow: 3px 3px 0 var(--purple);
+    padding: 22px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
+    -webkit-appearance: none;
+    position: relative;
   }
-  .phase-card-steps {
-    color: var(--accent);
+  .territory-day-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--purple);
     font-weight: 700;
-    margin-left: 12px;
+    margin-bottom: 6px;
+  }
+  .territory-aspect-name {
+    font-family: Georgia, serif;
+    font-size: 22px;
+    color: var(--text);
+    font-weight: 700;
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+  .territory-aspect-tagline {
+    font-family: Georgia, serif;
+    font-size: 14px;
+    color: var(--muted);
+    font-style: italic;
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+  .territory-meta { font-size: 12px; color: var(--dim); letter-spacing: 0.05em; }
+
+  .territory-mini-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .territory-mini-card {
+    background: var(--surface);
+    border: 1.5px solid var(--border-strong);
+    padding: 14px 12px;
+    cursor: pointer;
+    text-align: left;
+    -webkit-appearance: none;
+    transition: all 0.15s;
+  }
+  .territory-mini-num {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--purple);
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .territory-mini-name {
+    font-family: Georgia, serif;
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.35;
+    font-weight: 700;
   }
 
-  /* COMPLETION */
   .completion-label {
     font-size: 12px;
     letter-spacing: 0.25em;
@@ -310,15 +339,9 @@
     font-weight: 700;
     margin-bottom: 14px;
   }
-  .data-item {
-    font-size: 15px;
-    color: var(--muted);
-    line-height: 1.7;
-    margin-bottom: 8px;
-  }
+  .data-item { font-size: 15px; color: var(--muted); line-height: 1.7; margin-bottom: 8px; }
   .data-item-bullet { color: var(--accent); margin-right: 8px; font-weight: 700; }
 
-  /* HISTORY SCREEN */
   .history-entry {
     background: var(--surface);
     border: 1.5px solid var(--border-strong);
@@ -339,18 +362,9 @@
     border: 1.5px solid;
     color: #FFFFFF;
   }
-  .history-date {
-    font-size: 12px;
-    color: var(--dim);
-    letter-spacing: 0.06em;
-  }
-  .history-preview {
-    font-size: 15px;
-    color: var(--muted);
-    line-height: 1.6;
-  }
+  .history-date { font-size: 12px; color: var(--dim); letter-spacing: 0.06em; }
+  .history-preview { font-size: 15px; color: var(--muted); line-height: 1.6; }
 
-  /* EXPORT */
   .export-box {
     background: var(--surface);
     border: 1.5px solid var(--border-strong);
@@ -392,32 +406,13 @@
     -webkit-appearance: none;
   }
 
-  /* REFERENCE */
-  .ref-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
-    margin-top: 8px;
-  }
-  .ref-item-term {
-    font-size: 14px;
-    color: var(--text);
-    letter-spacing: 0.03em;
-    font-weight: 700;
-  }
-  .ref-item-desc {
-    font-size: 13px;
-    color: var(--dim);
-    letter-spacing: 0.02em;
-    margin-top: 3px;
-  }
+  .ref-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 8px; }
+  .ref-item-term { font-size: 14px; color: var(--text); letter-spacing: 0.03em; font-weight: 700; }
+  .ref-item-desc { font-size: 13px; color: var(--dim); letter-spacing: 0.02em; margin-top: 3px; }
 
-  /* NAV TAB BAR */
   .tab-bar {
     position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    bottom: 0; left: 0; right: 0;
     background: var(--surface);
     border-top: 2px solid var(--border-strong);
     display: flex;
@@ -446,7 +441,6 @@
 
   .spacer-bottom { height: 80px; }
 
-  /* TOAST */
   .toast {
     position: fixed;
     top: 20px;
@@ -465,27 +459,94 @@
     pointer-events: none;
   }
   .toast.show { opacity: 1; }
+
+  .timer-display {
+    font-family: 'Courier New', monospace;
+    font-size: 64px;
+    font-weight: 700;
+    text-align: center;
+    color: var(--purple);
+    margin: 20px 0 8px;
+    letter-spacing: 0.05em;
+  }
+  .timer-status {
+    text-align: center;
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    color: var(--dim);
+    font-weight: 700;
+    margin-bottom: 28px;
+  }
+  .timer-btn {
+    background: var(--purple);
+    border: 1.5px solid var(--purple);
+    color: #FFFFFF;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    letter-spacing: 0.15em;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 12px 20px;
+    -webkit-appearance: none;
+    margin: 0 4px;
+  }
+  .timer-btn.secondary {
+    background: var(--surface);
+    color: var(--muted);
+    border-color: var(--border-strong);
+  }
+  .timer-row { display: flex; justify-content: center; margin-bottom: 28px; }
+
+  .expert-frame {
+    background: var(--surface);
+    border: 1.5px solid var(--border-strong);
+    border-left: 4px solid var(--purple);
+    padding: 18px;
+    margin-bottom: 22px;
+  }
+  .expert-frame-label {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--purple);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .expert-frame-body {
+    font-family: Georgia, serif;
+    font-size: 15px;
+    color: var(--text);
+    line-height: 1.7;
+    margin-bottom: 12px;
+  }
+  .expert-frame-body strong { color: var(--text); font-weight: 700; }
+  .expert-frame-move {
+    background: var(--surface-2);
+    padding: 12px 14px;
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.65;
+    border-left: 2px solid var(--purple);
+    margin-top: 12px;
+  }
+  .expert-frame-move-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--purple);
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
 </style>
 </head>
 <body>
 
-<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
-<!-- TAB BAR -->
 <div class="tab-bar" id="tabBar">
-  <button class="tab-btn active" onclick="showTab('hub')" id="tab-hub">
-    <span class="tab-icon">◎</span>HUB
-  </button>
-  <button class="tab-btn" onclick="showTab('history')" id="tab-history">
-    <span class="tab-icon">≡</span>LOG
-  </button>
-  <button class="tab-btn" onclick="showTab('export')" id="tab-export">
-    <span class="tab-icon">↑</span>EXPORT
-  </button>
+  <button class="tab-btn active" onclick="showTab('hub')" id="tab-hub"><span class="tab-icon">◎</span>HUB</button>
+  <button class="tab-btn" onclick="showTab('history')" id="tab-history"><span class="tab-icon">≡</span>LOG</button>
+  <button class="tab-btn" onclick="showTab('export')" id="tab-export"><span class="tab-icon">↑</span>EXPORT</button>
 </div>
 
-<!-- ═══════════════ HUB SCREEN ═══════════════ -->
 <div class="screen active" id="screen-hub">
   <div class="header">
     <div>
@@ -497,7 +558,7 @@
   <div class="content">
     <p class="hub-quote">"The map is not the territory. React to the territory."</p>
 
-    <div class="section-label" id="suggested-label">SUGGESTED NOW</div>
+    <div class="section-label">RESPONSE TRAINING</div>
 
     <button class="phase-card" id="card-morning" onclick="startPhase('morning')" style="--accent:#B07A1E">
       <span class="phase-card-now" id="now-morning" style="display:none">NOW ▸</span>
@@ -527,8 +588,20 @@
       <div class="phase-card-meta">Evening · 8 minutes <span class="phase-card-steps">8 steps</span></div>
     </button>
 
+    <div class="section-label">TERRITORY TRAINING · TODAY</div>
+
+    <button class="territory-today-card" onclick="startTerritory(getTodaysAspect())">
+      <div class="territory-day-label" id="territory-day-label"></div>
+      <div class="territory-aspect-name" id="territory-aspect-name"></div>
+      <div class="territory-aspect-tagline" id="territory-aspect-tagline"></div>
+      <div class="territory-meta">2-minute practice · expert framing · log result</div>
+    </button>
+
+    <div class="section-label">FREE PRACTICE — CHOOSE ANY ASPECT</div>
+    <div class="territory-mini-grid" id="territory-mini-grid"></div>
+
     <div style="margin-top:36px;padding-top:24px;border-top:2px solid var(--border-strong)">
-      <div class="section-label">MECHANISMS BEING TRAINED</div>
+      <div class="section-label" style="margin-top:0">MECHANISMS BEING TRAINED</div>
       <div class="ref-grid">
         <div><div class="ref-item-term">Delayed reaction</div><div class="ref-item-desc">Signal → symbol shift</div></div>
         <div><div class="ref-item-term">Optimal tonicity</div><div class="ref-item-desc">Somatic calibration</div></div>
@@ -536,13 +609,14 @@
         <div><div class="ref-item-term">Extensional orientation</div><div class="ref-item-desc">Territory-first evaluation</div></div>
         <div><div class="ref-item-term">IFD interruption</div><div class="ref-item-desc">Frozen evaluation update</div></div>
         <div><div class="ref-item-term">Completion evidence</div><div class="ref-item-desc">Predicted vs. actual cost</div></div>
+        <div><div class="ref-item-term">Territory observation</div><div class="ref-item-desc">Sensory ground restoration</div></div>
+        <div><div class="ref-item-term">Indexing</div><div class="ref-item-desc">Person₁ time₁ context₁</div></div>
       </div>
     </div>
     <div class="spacer-bottom"></div>
   </div>
 </div>
 
-<!-- ═══════════════ SESSION SCREEN ═══════════════ -->
 <div class="screen" id="screen-session">
   <div class="header" id="session-header">
     <div>
@@ -551,12 +625,9 @@
     </div>
     <div class="progress-bar" id="progress-bar" style="width:120px"></div>
   </div>
-  <div class="content" id="session-content">
-    <div class="spacer-bottom"></div>
-  </div>
+  <div class="content" id="session-content"><div class="spacer-bottom"></div></div>
 </div>
 
-<!-- ═══════════════ HISTORY SCREEN ═══════════════ -->
 <div class="screen" id="screen-history">
   <div class="header">
     <div>
@@ -565,12 +636,9 @@
     </div>
     <button onclick="clearHistory()" style="background:transparent;border:none;color:var(--dim);font-family:'Courier New',monospace;font-size:11px;letter-spacing:0.12em;font-weight:700;cursor:pointer">CLEAR</button>
   </div>
-  <div class="content" id="history-list">
-    <div class="spacer-bottom"></div>
-  </div>
+  <div class="content" id="history-list"><div class="spacer-bottom"></div></div>
 </div>
 
-<!-- ═══════════════ EXPORT SCREEN ═══════════════ -->
 <div class="screen" id="screen-export">
   <div class="header">
     <div>
@@ -586,15 +654,14 @@
     <div class="export-box" id="export-preview"></div>
     <button class="btn-primary" onclick="copyExport()">COPY TO CLIPBOARD</button>
     <button class="btn-secondary" onclick="shareExport()">SHARE / SEND TO NOTES</button>
-
     <div style="margin-top:36px;padding-top:24px;border-top:2px solid var(--border-strong)">
-      <div class="section-label">HOW TO USE WITH CLAUDE</div>
+      <div class="section-label" style="margin-top:0">HOW TO USE WITH CLAUDE</div>
       <div style="font-size:14px;color:var(--muted);line-height:1.9">
         1. Tap <strong style="color:var(--text)">COPY TO CLIPBOARD</strong> above<br>
         2. Open the Claude app<br>
         3. Start a new message in your GS project<br>
         4. Paste the export<br>
-        5. Add: <span style="color:var(--gold);font-weight:700">"Build my weekly GS report — pattern analysis, IFD tracking, signal reaction trends, completion evidence, and one specific training focus for next week."</span>
+        5. Add: <span style="color:var(--gold);font-weight:700">"Build my weekly GS report — pattern analysis, IFD tracking, signal reaction trends, completion evidence, territory training observations, and one specific training focus for next week."</span>
       </div>
     </div>
     <div class="spacer-bottom"></div>
@@ -602,20 +669,13 @@
 </div>
 
 <script>
-// ═══════════════════════════════════════════════
-// DATA
-// ═══════════════════════════════════════════════
-
 const MORNING_STEPS = [
-  {
-    id: "tonicity", label: "SOMATIC BASELINE",
+  { id: "tonicity", label: "SOMATIC BASELINE",
     instruction: "Before any word — scan the body. Place one hand on your sternum. Notice jaw, shoulders, gut. You are not assessing feelings. You are locating tension.",
     question: "Where is excess tension right now?",
     type: "multi",
-    options: ["Jaw / face","Throat","Chest / sternum","Gut","Shoulders","Nowhere notable"]
-  },
-  {
-    id: "abstraction", label: "ABSTRACTION AUDIT",
+    options: ["Jaw / face","Throat","Chest / sternum","Gut","Shoulders","Nowhere notable"] },
+  { id: "abstraction", label: "ABSTRACTION AUDIT",
     instruction: "What level are you waking up inside? Most mornings the mind arrives already three or four abstractions above any actual territory.",
     question: "My mind arrived this morning at...",
     type: "single",
@@ -624,18 +684,14 @@ const MORNING_STEPS = [
       "Object level — thinking about specific things",
       "Label level — running narratives about those things",
       "High abstraction — worrying about categories not here yet"
-    ]
-  },
-  {
-    id: "frozen", label: "FROZEN EVALUATION CHECK",
+    ] },
+  { id: "frozen", label: "FROZEN EVALUATION CHECK",
     instruction: "A frozen evaluation is a map you stopped updating. It runs automatically. It feels like reality. It is not.",
     question: "Is any frozen evaluation already active this morning?",
     type: "text",
-    placeholder: "Example: 'I already know how today will go.' / 'That person is going to...' / 'I can't...'  Write the actual words your nervous system is running."
-  },
-  {
-    id: "ifd", label: "IFD SCAN",
-    instruction: "Johnson's pattern: Idealization → Frustration → Demoralization. It runs below the surface. Catch it before it runs the day.",
+    placeholder: "Example: I already know how today will go. / That person is going to... Write the actual words your nervous system is running." },
+  { id: "ifd", label: "IFD SCAN",
+    instruction: "Johnson's pattern: Idealization to Frustration to Demoralization. Catch it before it runs the day.",
     question: "On my most important current project, I am closest to...",
     type: "single",
     options: [
@@ -643,53 +699,39 @@ const MORNING_STEPS = [
       "Idealization (uncalibrated) — high standard, not checked against current reality",
       "Frustration — the gap feels personal, like deficiency",
       "Demoralization — I've stopped believing the gap can close"
-    ]
-  },
-  {
-    id: "intention", label: "EXTENSIONAL INTENTION",
-    instruction: "Not a goal. Not an affirmation. One observable, specific behavior — indexed to today — that represents extensional orientation in action.",
+    ] },
+  { id: "intention", label: "EXTENSIONAL INTENTION",
+    instruction: "Not a goal. Not an affirmation. One observable, specific behavior — indexed to today.",
     question: "Today I will practice delayed reaction specifically when...",
     type: "text",
-    placeholder: "Be specific. Name the situation, person, or trigger. 'When _____, instead of reacting, I will _____.'"
-  },
-  {
-    id: "keystone", label: "KEYSTONE TASK",
-    instruction: "Not the list. One task. The one that, if completed today, makes the day a win. Naming one task starves the pre-anticipation scan of the whole category it feeds on.",
+    placeholder: "Be specific. Name the situation, person, or trigger." },
+  { id: "keystone", label: "KEYSTONE TASK",
+    instruction: "Not the list. One task. The one that, if completed today, makes the day a win.",
     question: "Today's ONE keystone task is...",
     type: "short",
-    placeholder: "One task. Specific. Nameable."
-  },
-  {
-    id: "stoppoint", label: "STOPPING POINT",
-    instruction: "An undefined task is, to the threat system, an infinite task — and it returns 'overwhelming' by default. Define the end in observable terms and the task becomes finite, assessable, honest.",
+    placeholder: "One task. Specific. Nameable." },
+  { id: "stoppoint", label: "STOPPING POINT",
+    instruction: "An undefined task is, to the threat system, an infinite task. Define the end in observable terms and the task becomes finite.",
     question: "This task is done when what is physically, observably true?",
     type: "short",
-    placeholder: "Done when ______. Observable. Not 'when it's good enough.'"
-  },
-  {
-    id: "firstaction", label: "FIRST PHYSICAL ACTION",
-    instruction: "Not planning it. Not evaluating it. The smallest concrete physical move that begins it. Small enough that it does not require force to start.",
+    placeholder: "Done when ______. Observable. Not when it is good enough." },
+  { id: "firstaction", label: "FIRST PHYSICAL ACTION",
+    instruction: "Not planning it. Not evaluating it. The smallest concrete physical move that begins it.",
     question: "The first physical action — the one I move on within 5 seconds — is...",
     type: "short",
-    placeholder: "Open the file. Pick up the phone. Write one line."
-  }
+    placeholder: "Open the file. Pick up the phone. Write one line." }
 ];
 
 const INTERRUPT_STEPS = [
-  {
-    id: "territory", label: "SIGNAL REACTION CAUGHT",
+  { id: "territory", label: "SIGNAL REACTION CAUGHT",
     question: "What just happened? (Territory only — no story yet)",
     type: "text",
-    placeholder: "Facts. Observable. Who/what/when. No interpretation."
-  },
-  {
-    id: "somatic", label: "SOMATIC READ",
+    placeholder: "Facts. Observable. Who, what, when. No interpretation." },
+  { id: "somatic", label: "SOMATIC READ",
     question: "Where did you feel it first — before thought?",
     type: "multi",
-    options: ["Jaw tightened","Chest tightened","Gut reaction","Shoulders rose","Breath shortened","Heat in face/neck"]
-  },
-  {
-    id: "mapcheck", label: "MAP vs TERRITORY",
+    options: ["Jaw tightened","Chest tightened","Gut reaction","Shoulders rose","Breath shortened","Heat in face/neck"] },
+  { id: "mapcheck", label: "MAP vs TERRITORY",
     question: "Am I reacting to what actually happened, or to my map of it?",
     type: "single",
     options: [
@@ -698,10 +740,8 @@ const INTERRUPT_STEPS = [
       "Old map — this triggered a pattern from a different time/person/situation",
       "Generated scenario — I am reacting to a story, not territory that exists yet",
       "Uncertain — I don't know yet"
-    ]
-  },
-  {
-    id: "delay", label: "DELAY PROTOCOL",
+    ] },
+  { id: "delay", label: "DELAY PROTOCOL",
     question: "What is the minimum delay before I respond?",
     type: "single",
     options: [
@@ -710,38 +750,30 @@ const INTERRUPT_STEPS = [
       "1 hour",
       "End of day",
       "This doesn't require a response"
-    ]
-  },
-  {
-    id: "revised", label: "REVISED RESPONSE",
+    ] },
+  { id: "revised", label: "REVISED RESPONSE",
     question: "If I respond from symbol reaction instead of signal reaction, what do I actually say or do?",
     type: "text",
-    placeholder: "Specific words or actions. Not an intention — the actual response."
-  }
+    placeholder: "Specific words or actions. Not an intention — the actual response." }
 ];
 
 const RECORD_STEPS = [
-  {
-    id: "taskname", label: "NAME — WHAT WAS PRODUCED",
-    instruction: "A task is complete. Record it while the territory is fresh. This runs once per completed task — every completion is a separate piece of evidence.",
+  { id: "taskname", label: "NAME — WHAT WAS PRODUCED",
+    instruction: "A task is complete. Record it while the territory is fresh. Every completion is a separate piece of evidence.",
     question: "What specifically did I produce?",
     type: "short",
-    placeholder: "Object-level. Observable. Not 'worked on' — what now exists."
-  },
-  {
-    id: "predicted", label: "PREDICTED COST",
+    placeholder: "Object-level. Observable. Not worked on — what now exists." },
+  { id: "predicted", label: "PREDICTED COST",
     instruction: "Before you started, the pre-anticipation scan made a prediction. Recall it honestly.",
-    question: "Before starting, what did my nervous system predict this would cost — in energy, difficulty, or dread?",
+    question: "Before starting, what did my nervous system predict this would cost?",
     type: "single",
     options: [
       "Predicted severe — I expected this to be draining or hard",
       "Predicted moderate — I expected real resistance",
       "Predicted light — I expected it to be manageable",
       "No prediction — I entered before the scan loaded"
-    ]
-  },
-  {
-    id: "actual", label: "ACTUAL COST",
+    ] },
+  { id: "actual", label: "ACTUAL COST",
     instruction: "Now the territory. What did it actually cost, once you were in it?",
     question: "What did completing it actually cost?",
     type: "single",
@@ -750,11 +782,9 @@ const RECORD_STEPS = [
       "Actual moderate — real but manageable",
       "Actual light — far less than it felt beforehand",
       "Actual near-zero — once moving, there was almost no cost"
-    ]
-  },
-  {
-    id: "emotion", label: "EMOTION — WHAT COMPLETION PRODUCED",
-    instruction: "The distinction that matters: self-building energy that powers the private self — or only the quiet of an alarm switched off.",
+    ] },
+  { id: "emotion", label: "EMOTION — WHAT COMPLETION PRODUCED",
+    instruction: "Self-building energy that powers the private self — or only the quiet of an alarm switched off.",
     question: "What did finishing this actually produce in me?",
     type: "single",
     options: [
@@ -762,11 +792,9 @@ const RECORD_STEPS = [
       "Quiet satisfaction — clean, settled, complete",
       "Mere relief — only the alarm going off, nothing built",
       "Neutral — it was a task I likely should not have been doing"
-    ]
-  },
-  {
-    id: "value", label: "VALUE — WHOSE PATH",
-    instruction: "Korzybski's map-territory question turned on your own goals. Not every stall is pathology — some stalls correctly signal a borrowed task.",
+    ] },
+  { id: "value", label: "VALUE — WHOSE PATH",
+    instruction: "Not every stall is pathology — some correctly signal a borrowed task.",
     question: "Did this task serve a path I have chosen — or one I inherited or assumed?",
     type: "single",
     options: [
@@ -774,27 +802,21 @@ const RECORD_STEPS = [
       "Mostly chosen — mine, with some inherited weight",
       "Inherited — I am doing this because I assumed I should",
       "Unsure — worth examining"
-    ]
-  }
+    ] }
 ];
 
 const EVENING_STEPS = [
-  {
-    id: "event", label: "SEMANTIC AUTOPSY — EVENT",
-    instruction: "Choose one moment from today where your evaluation and the territory diverged. Not the worst moment — the most instructive one.",
+  { id: "event", label: "SEMANTIC AUTOPSY — EVENT",
+    instruction: "Choose one moment from today where your evaluation and the territory diverged. Not the worst — the most instructive.",
     question: "Describe the event — territory only:",
     type: "text",
-    placeholder: "What actually happened. Observable. No 'because' or 'which means' yet."
-  },
-  {
-    id: "mapran", label: "RECONSTRUCT THE MAP",
-    instruction: "What did your nervous system tell you was happening? This is the map you were actually running.",
+    placeholder: "What actually happened. Observable. No because or which means yet." },
+  { id: "mapran", label: "RECONSTRUCT THE MAP",
+    instruction: "What did your nervous system tell you was happening?",
     question: "The story I told myself was...",
     type: "text",
-    placeholder: "First person. Present tense. What it meant, what it said about you/them, what it predicted."
-  },
-  {
-    id: "diverge", label: "LOCATE THE DIVERGENCE",
+    placeholder: "First person. Present tense. What it meant, what it predicted." },
+  { id: "diverge", label: "LOCATE THE DIVERGENCE",
     question: "Where exactly did the map leave the territory?",
     type: "single",
     options: [
@@ -803,29 +825,21 @@ const EVENING_STEPS = [
       "At inference — I jumped from fact to conclusion without evidence",
       "At generalization — I applied a past map to a present situation",
       "At identity — I made it about who I/they am, not what happened"
-    ]
-  },
-  {
-    id: "correction", label: "MAP CORRECTION",
-    question: "What is a more accurate map — one accounting for what was actually observable?",
+    ] },
+  { id: "correction", label: "MAP CORRECTION",
+    question: "What is a more accurate map — accounting for what was actually observable?",
     type: "text",
-    placeholder: "Rewrite the event with the correction applied. Specific, indexed, dated."
-  },
-  {
-    id: "signalcount", label: "SIGNAL REACTION LOG",
+    placeholder: "Rewrite the event with the correction applied. Specific, indexed, dated." },
+  { id: "signalcount", label: "SIGNAL REACTION LOG",
     question: "How many signal reactions (undelayed, stereotyped) did I catch today?",
     type: "single",
-    options: ["0 — didn't catch any (awareness gap, not absence)","1–2","3–5","5+ (high-activation day)"]
-  },
-  {
-    id: "delaycount", label: "DELAYED REACTION LOG",
+    options: ["0 — didn't catch any (awareness gap, not absence)","1–2","3–5","5+ (high-activation day)"] },
+  { id: "delaycount", label: "DELAYED REACTION LOG",
     question: "How many times did I successfully delay and evaluate before responding?",
     type: "single",
-    options: ["0","1–2","3–5","5+ (strong day)"]
-  },
-  {
-    id: "closing", label: "CLOSING SOMATIC CHECK",
-    instruction: "Thalamo-cortical integration. The body and cortex must close together. Does your nervous system load match today's actual territory?",
+    options: ["0","1–2","3–5","5+ (strong day)"] },
+  { id: "closing", label: "CLOSING SOMATIC CHECK",
+    instruction: "Does your nervous system load match today's actual territory?",
     question: "My nervous system is carrying...",
     type: "single",
     options: [
@@ -833,15 +847,12 @@ const EVENING_STEPS = [
       "Excess load — carrying more tension than today's events warrant",
       "Residual activation — something from earlier is still running",
       "Appropriate ease — today's evaluations closed cleanly"
-    ]
-  },
-  {
-    id: "tomorrow", label: "TOMORROW'S INDEX",
+    ] },
+  { id: "tomorrow", label: "TOMORROW'S INDEX",
     instruction: "One specific, dated, indexed statement about tomorrow. Not an aspiration — a calibration.",
     question: "Tomorrow, in [specific context], I will practice...",
     type: "text",
-    placeholder: "Delayed reaction before responding to ___. / Dropping to object level when I notice ___ happening. / Checking my map against territory when I feel ___."
-  }
+    placeholder: "Delayed reaction before responding to ___. / Dropping to object level when I notice ___ happening." }
 ];
 
 const PHASES = {
@@ -851,18 +862,54 @@ const PHASES = {
   evening: { label: "SEMANTIC AUTOPSY", sub: "Evening · 8 minutes", accent: "#2B6CA3", steps: EVENING_STEPS }
 };
 
-// ═══════════════════════════════════════════════
-// STATE
-// ═══════════════════════════════════════════════
+const TERRITORY_ASPECTS = [
+  {
+    id: "sensory", num: "01", name: "Sensory Ground",
+    tagline: "The foundation. Below the level where any frozen evaluation can run.",
+    expert: "<strong>The principle:</strong> Every frozen evaluation lives at higher abstraction levels than raw sensation. The pre-anticipation pattern cannot run at the sensory ground — there is no future at the sensory ground. The scan requires labels and categories to operate; sensation refuses both.<br><br><strong>The mechanism:</strong> A forced descent below the level where the scan lives. Five raw observations in two minutes. Not five thoughts about what you are sensing — five observations from the senses themselves, prior to interpretation.",
+    move: "Pick an environment. Set the timer. Name five specific sensory observations — one per sense if possible. Format: noun plus descriptor, no judgment. <em>Blue mug on counter. Refrigerator hum. Cool air on left forearm. Slight tension behind right eye. Smell of coffee.</em> When you finish five, observe what shifted.",
+    prompt: "What five sensory observations did you record? What shifted in your state during the practice?"
+  },
+  {
+    id: "event", num: "02", name: "Event-Level Observation",
+    tagline: "What a camera would record — events, not meanings.",
+    expert: "<strong>The principle:</strong> Territory at the event level is verbs and nouns, not adjectives and judgments. An event is something that could be filmed. If it cannot be filmed, it is already an interpretation. <em>She was being dismissive</em> is not territory — it is map. The camera would record specific words at specific volume with specific eye contact, and nothing else.<br><br><strong>The mechanism:</strong> The camera question. Applied repeatedly in real interaction, it forces observation before interpretation, instead of allowing interpretation to substitute for observation.",
+    move: "During an interaction or while observing one, hold one question internally — <strong>what would a camera have recorded?</strong> Note exact words. Note tone and volume. Note posture and timing. When you catch yourself recording an interpretation instead of an observation, return to camera-mode. Two minutes.",
+    prompt: "What did the camera actually record? Where did interpretation try to substitute for observation?"
+  },
+  {
+    id: "index", num: "03", name: "Indexed Particularity",
+    tagline: "Person1 time1 context1 is not Person1 time2 context2.",
+    expert: "<strong>The principle:</strong> No two events, people, or moments are identical. The frozen evaluation works by treating the present instance as identical to a past pattern. The moment <em>this is what happens when...</em> appears, indexing has failed — the territory has been collapsed into a category instead of observed as itself.<br><br><strong>The mechanism:</strong> Attach explicit indices to the present moment. Spouse-Tuesday-evening-after-difficult-workday is not spouse-Sunday-morning-relaxed. The index forces the present moment to be seen as itself, not as a member of a category. This is the precise dissolvent for the most resistant frozen evaluations.",
+    move: "Pick a person, situation, or recurring interaction where you most often run a stale map. Write the full index of this present instance — date, time, context, recent precedents, current state, other variables. Two minutes. Read it back. Notice what the index reveals that the category concealed.",
+    prompt: "What did the full index reveal? What had the category been concealing?"
+  },
+  {
+    id: "present", num: "04", name: "Time-Bounded Present",
+    tagline: "Territory exists only now. Past is memory. Future does not exist.",
+    expert: "<strong>The principle:</strong> Most reactivity requires you to leave the present. Pre-anticipation requires future-time. Fantasy mapping requires alternative-time. Frozen evaluations require past-time. All three patterns require you to leave the present. Stay in the time-bounded present and none of them can find traction.<br><br><strong>The mechanism:</strong> Notice tense. The signal is always tense — <em>will I, should I, what if, last time, never, always.</em> Each tense pulls you out of territory. The corrective is one question: <strong>what is present right now?</strong> Not what will be. Not what was. What is.",
+    move: "Choose one activity for the next two minutes — anything. While doing it, notice each time your attention leaves the present. When you catch it, return with the question <em>what is present right now?</em> Don't fight the drift. Just notice and return. The training is the noticing, not the perfect stillness.",
+    prompt: "How many times did attention leave the present? What kept pulling it forward or backward?"
+  },
+  {
+    id: "nonverbal", num: "05", name: "Non-Verbal Territory",
+    tagline: "The deepest level — receiving before naming.",
+    expert: "<strong>The principle:</strong> Most of the actual territory of your life is not verbal. Body state, the quality of light, the feel of a room, the energy of a moment — these exist before language. The moment words arrive — <em>tense, warm, off</em> — you have left territory and entered map. The word is not the thing.<br><br><strong>The mechanism:</strong> Receiving without translating. The self-building energy you have access to — cooking, building, making, doing — lives in this non-verbal layer. The verbal map-making has been crowding out this entire layer of experience. Reopening it does not only reduce reactivity. It restores the deepest reward channel you have.",
+    move: "Choose something present — a person, a room, an object, a moment. For thirty seconds, receive it without naming it. Don't characterize. Don't summarize. Notice the urge to put words on it and decline. Do this three times in two minutes, with different objects of attention. Notice what you receive when you stop translating.",
+    prompt: "What did you receive when you stopped translating? What was the urge to name actually doing?"
+  }
+];
+
+const TERRITORY_DURATION = 120;
 
 let currentPhase = null;
 let currentStep = 0;
 let currentAnswers = {};
 let currentTab = 'hub';
-
-// ═══════════════════════════════════════════════
-// STORAGE
-// ═══════════════════════════════════════════════
+let currentTerritoryAspect = null;
+let timerInterval = null;
+let timerRemaining = 0;
+let timerRunning = false;
 
 function getSessions() {
   try { return JSON.parse(localStorage.getItem('gs_sessions') || '[]'); }
@@ -871,12 +918,7 @@ function getSessions() {
 
 function saveSession(phase, answers) {
   const sessions = getSessions();
-  sessions.push({
-    id: Date.now(),
-    phase,
-    timestamp: new Date().toISOString(),
-    answers
-  });
+  sessions.push({ id: Date.now(), phase, timestamp: new Date().toISOString(), answers });
   localStorage.setItem('gs_sessions', JSON.stringify(sessions));
 }
 
@@ -888,10 +930,6 @@ function clearHistory() {
   }
 }
 
-// ═══════════════════════════════════════════════
-// NAVIGATION
-// ═══════════════════════════════════════════════
-
 function showTab(tab) {
   currentTab = tab;
   ['hub','history','export'].forEach(t => {
@@ -900,7 +938,6 @@ function showTab(tab) {
   });
   document.getElementById('screen-session').classList.remove('active');
   document.getElementById('tabBar').style.display = 'flex';
-
   if (tab === 'history') renderHistory();
   if (tab === 'export') renderExport();
 }
@@ -909,56 +946,49 @@ function startPhase(phase) {
   currentPhase = phase;
   currentStep = 0;
   currentAnswers = {};
-
+  currentTerritoryAspect = null;
+  stopTimer();
   const cfg = PHASES[phase];
   document.getElementById('session-title').textContent = cfg.label;
   document.getElementById('session-title').style.color = cfg.accent;
   document.getElementById('session-sub').textContent = cfg.sub;
-
   document.getElementById('screen-hub').classList.remove('active');
   document.getElementById('screen-history').classList.remove('active');
   document.getElementById('screen-export').classList.remove('active');
   document.getElementById('screen-session').classList.add('active');
   document.getElementById('tabBar').style.display = 'none';
-
   renderStep();
 }
 
 function exitSession() {
+  stopTimer();
   document.getElementById('screen-session').classList.remove('active');
   document.getElementById('tabBar').style.display = 'flex';
   showTab(currentTab || 'hub');
 }
 
-// ═══════════════════════════════════════════════
-// SESSION RENDERING
-// ═══════════════════════════════════════════════
-
 function renderStep() {
+  if (currentPhase === 'territory') { renderTerritoryStep(); return; }
   const cfg = PHASES[currentPhase];
   const steps = cfg.steps;
   const step = steps[currentStep];
   const accent = cfg.accent;
-
-  // Progress bar
   const pb = document.getElementById('progress-bar');
   pb.innerHTML = steps.map((_, i) =>
     `<div class="progress-pip" style="${i <= currentStep ? 'background:'+accent : ''}"></div>`
   ).join('');
-
   const val = currentAnswers[step.id];
   const content = document.getElementById('session-content');
 
   let inputHTML = '';
   if (step.type === 'single' || step.type === 'multi') {
-    inputHTML = `<div class="choices" id="choices-container">` +
+    inputHTML = `<div class="choices">` +
       step.options.map((opt, i) => {
         const isSelected = step.type === 'multi'
           ? (Array.isArray(val) && val.includes(opt))
           : val === opt;
         return `<button class="choice-btn ${isSelected ? 'selected' : ''}"
           style="${isSelected ? `background:${accent};border-color:${accent}` : ''}"
-          data-index="${i}"
           onclick="selectChoiceByIndex(${i})">
           <span class="choice-letter">${String.fromCharCode(65+i)}.</span>${opt}
         </button>`;
@@ -975,10 +1005,9 @@ function renderStep() {
   }
 
   const hasVal = hasValue(step.id, step.type);
-
   content.innerHTML = `
     <div class="step-num" style="color:${accent}">${String(currentStep+1).padStart(2,'0')} / ${String(steps.length).padStart(2,'0')} · ${step.label}</div>
-    ${step.instruction ? `<div class="step-instruction" style="border-left-color:${accent}">${step.instruction}</div>` : ''}
+    ${step.instruction ? `<div class="step-instruction" style="--accent:${accent};border-left-color:${accent}">${step.instruction}</div>` : ''}
     <div class="step-question">${step.question}</div>
     ${inputHTML}
     <div class="nav-row">
@@ -991,11 +1020,8 @@ function renderStep() {
     </div>
     <div class="spacer-bottom"></div>
   `;
-
-  // Set placeholder safely via JS (avoids apostrophe issues in HTML attributes)
   const ta = document.getElementById('text-input');
   if (ta && step.placeholder) ta.placeholder = step.placeholder;
-
   window.scrollTo(0, 0);
 }
 
@@ -1045,6 +1071,10 @@ function textChanged() {
 }
 
 function goNext() {
+  if (currentPhase === 'territory') {
+    if (currentStep < 2) { currentStep++; renderTerritoryStep(); }
+    return;
+  }
   const steps = PHASES[currentPhase].steps;
   if (currentStep < steps.length - 1) {
     currentStep++;
@@ -1056,22 +1086,18 @@ function goNext() {
 }
 
 function goBack() {
-  if (currentStep > 0) {
-    currentStep--;
-    renderStep();
-  } else {
-    exitSession();
+  if (currentPhase === 'territory') {
+    if (currentStep > 0) { currentStep--; renderTerritoryStep(); }
+    else { exitSession(); }
+    return;
   }
+  if (currentStep > 0) { currentStep--; renderStep(); }
+  else { exitSession(); }
 }
-
-// ═══════════════════════════════════════════════
-// COMPLETION
-// ═══════════════════════════════════════════════
 
 function renderCompletion() {
   const cfg = PHASES[currentPhase];
   const accent = cfg.accent;
-
   const titles = { morning: 'Calibrated.', interrupt: 'Evaluated.', record: 'Recorded.', evening: 'Integrated.' };
   const subs = {
     morning: 'The nervous system is set. The day begins from territory — with one task entry already loaded.',
@@ -1079,7 +1105,6 @@ function renderCompletion() {
     record: 'Evidence logged. The frozen evaluation has one more contradiction to answer to.',
     evening: 'The map has been updated. Tomorrow starts more accurate.'
   };
-
   const ans = currentAnswers;
   let dataItems = [];
   if (currentPhase === 'morning') {
@@ -1099,11 +1124,9 @@ function renderCompletion() {
     if (ans.delaycount) dataItems.push(`Delayed reactions: ${ans.delaycount}`);
     if (ans.closing) dataItems.push(`Closing state: ${ans.closing}`);
   }
-
   document.getElementById('progress-bar').innerHTML = '';
-
   document.getElementById('session-content').innerHTML = `
-    <div class="completion-label">SESSION CLOSED · SAVED</div>
+    <div class="completion-label" style="color:${accent}">SESSION CLOSED · SAVED</div>
     <div class="completion-title">${titles[currentPhase]}</div>
     <div class="completion-sub">${subs[currentPhase]}</div>
     ${dataItems.length ? `
@@ -1126,34 +1149,249 @@ function shortCost(s) {
   return s;
 }
 
-// ═══════════════════════════════════════════════
-// HISTORY
-// ═══════════════════════════════════════════════
+// TERRITORY
+function getTodaysAspect() {
+  const now = new Date();
+  const start = new Date(now.getFullYear(), 0, 0);
+  const diff = now - start;
+  const dayOfYear = Math.floor(diff / (1000 * 60 * 60 * 24));
+  return TERRITORY_ASPECTS[dayOfYear % TERRITORY_ASPECTS.length];
+}
+
+function renderTerritoryHubCard() {
+  const aspect = getTodaysAspect();
+  const days = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
+  const dayName = days[new Date().getDay()];
+  document.getElementById('territory-day-label').textContent = `${dayName} · ASPECT ${aspect.num}`;
+  document.getElementById('territory-aspect-name').textContent = aspect.name;
+  document.getElementById('territory-aspect-tagline').textContent = aspect.tagline;
+}
+
+function renderTerritoryMiniGrid() {
+  const grid = document.getElementById('territory-mini-grid');
+  grid.innerHTML = TERRITORY_ASPECTS.map(a =>
+    `<button class="territory-mini-card" onclick="startTerritoryById('${a.id}')">
+      <div class="territory-mini-num">${a.num} · ASPECT</div>
+      <div class="territory-mini-name">${a.name}</div>
+    </button>`
+  ).join('');
+}
+
+function startTerritoryById(id) {
+  const aspect = TERRITORY_ASPECTS.find(a => a.id === id);
+  if (aspect) startTerritory(aspect);
+}
+
+function startTerritory(aspect) {
+  currentPhase = 'territory';
+  currentTerritoryAspect = aspect;
+  currentAnswers = {};
+  currentStep = 0;
+  stopTimer();
+  timerRemaining = TERRITORY_DURATION;
+  timerRunning = false;
+  document.getElementById('session-title').textContent = 'TERRITORY · ' + aspect.name.toUpperCase();
+  document.getElementById('session-title').style.color = 'var(--purple)';
+  document.getElementById('session-sub').textContent = 'ASPECT ' + aspect.num + ' · 2-minute practice';
+  document.getElementById('screen-hub').classList.remove('active');
+  document.getElementById('screen-history').classList.remove('active');
+  document.getElementById('screen-export').classList.remove('active');
+  document.getElementById('screen-session').classList.add('active');
+  document.getElementById('tabBar').style.display = 'none';
+  renderTerritoryStep();
+}
+
+function renderTerritoryStep() {
+  const a = currentTerritoryAspect;
+  const pb = document.getElementById('progress-bar');
+  pb.innerHTML = `<div class="progress-pip" style="background:var(--purple)"></div>
+                  <div class="progress-pip" style="${currentStep>=1?'background:var(--purple)':''}"></div>
+                  <div class="progress-pip" style="${currentStep>=2?'background:var(--purple)':''}"></div>`;
+  const content = document.getElementById('session-content');
+
+  if (currentStep === 0) {
+    content.innerHTML = `
+      <div class="step-num" style="color:var(--purple)">01 / 03 · EXPERT FRAMING</div>
+      <div class="expert-frame">
+        <div class="expert-frame-label">${a.num} · ${a.name.toUpperCase()}</div>
+        <div class="expert-frame-body">${a.expert}</div>
+        <div class="expert-frame-move">
+          <div class="expert-frame-move-label">THE PRACTICE MOVE</div>
+          ${a.move}
+        </div>
+      </div>
+      <div class="nav-row">
+        <button class="btn-back" onclick="exitSession()">← EXIT</button>
+        <button class="btn-next" style="background:var(--purple);border-color:var(--purple);color:#FFF" onclick="goNext()">PROCEED →</button>
+      </div>
+      <div class="spacer-bottom"></div>
+    `;
+  } else if (currentStep === 1) {
+    const mins = Math.floor(timerRemaining / 60);
+    const secs = timerRemaining % 60;
+    const display = String(mins).padStart(2,'0') + ':' + String(secs).padStart(2,'0');
+    const status = timerRunning ? 'PRACTICE IN MOTION' : (timerRemaining === 0 ? 'COMPLETE' : 'READY');
+    let btnHTML = '';
+    if (timerRunning) {
+      btnHTML = `<button class="timer-btn secondary" onclick="pauseTimer()">PAUSE</button>`;
+    } else if (timerRemaining === 0) {
+      btnHTML = `<button class="timer-btn secondary" onclick="resetTimer()">RESET</button>`;
+    } else {
+      const label = timerRemaining < TERRITORY_DURATION ? 'RESUME' : 'START';
+      btnHTML = `<button class="timer-btn" onclick="startTimer()">${label}</button>`;
+      if (timerRemaining < TERRITORY_DURATION) {
+        btnHTML += `<button class="timer-btn secondary" onclick="resetTimer()">RESET</button>`;
+      }
+    }
+    content.innerHTML = `
+      <div class="step-num" style="color:var(--purple)">02 / 03 · PRACTICE</div>
+      <div class="expert-frame" style="margin-bottom:10px">
+        <div class="expert-frame-label">PRACTICE MOVE</div>
+        <div class="expert-frame-body" style="font-size:14px">${a.move}</div>
+      </div>
+      <div class="timer-display">${display}</div>
+      <div class="timer-status">${status}</div>
+      <div class="timer-row">${btnHTML}</div>
+      <div class="nav-row">
+        <button class="btn-back" onclick="goBack()">← BACK</button>
+        <button class="btn-next" style="background:var(--purple);border-color:var(--purple);color:#FFF" onclick="goNext()">CONTINUE →</button>
+      </div>
+      <div class="spacer-bottom"></div>
+    `;
+  } else {
+    const val = currentAnswers.observation || '';
+    const hasVal = val.trim().length > 0;
+    content.innerHTML = `
+      <div class="step-num" style="color:var(--purple)">03 / 03 · OBSERVATION LOG</div>
+      <div class="step-instruction" style="border-left-color:var(--purple)">
+        Capture what you actually observed during the practice — not what you concluded, what you observed. This is territory data.
+      </div>
+      <div class="step-question">${a.prompt}</div>
+      <textarea class="gs-textarea" id="text-input"
+        style="border-left-color:var(--purple)"
+        oninput="territoryTextChanged()">${val}</textarea>
+      <div class="nav-row">
+        <button class="btn-back" onclick="goBack()">← BACK</button>
+        <button class="btn-next" id="btn-next"
+          style="${hasVal ? 'background:var(--purple);border-color:var(--purple);color:#FFF' : ''}"
+          onclick="finishTerritory()" ${hasVal ? '' : 'disabled'}>CLOSE SESSION</button>
+      </div>
+      <div class="spacer-bottom"></div>
+    `;
+    const ta = document.getElementById('text-input');
+    if (ta) ta.placeholder = 'What you observed. What shifted. What you noticed in your own state.';
+  }
+  window.scrollTo(0, 0);
+}
+
+function territoryTextChanged() {
+  const ta = document.getElementById('text-input');
+  if (!ta) return;
+  currentAnswers.observation = ta.value;
+  const btn = document.getElementById('btn-next');
+  if (ta.value.trim()) {
+    btn.disabled = false;
+    btn.style.background = 'var(--purple)';
+    btn.style.borderColor = 'var(--purple)';
+    btn.style.color = '#FFF';
+    btn.style.fontWeight = '700';
+  } else {
+    btn.disabled = true;
+    btn.style.background = 'var(--surface)';
+    btn.style.borderColor = 'var(--border)';
+    btn.style.color = 'var(--dim)';
+  }
+}
+
+function finishTerritory() {
+  const a = currentTerritoryAspect;
+  saveSession('territory', {
+    aspect_num: a.num,
+    aspect_name: a.name,
+    observation: currentAnswers.observation || ''
+  });
+  stopTimer();
+  document.getElementById('progress-bar').innerHTML = '';
+  document.getElementById('session-content').innerHTML = `
+    <div class="completion-label" style="color:var(--purple)">SESSION CLOSED · SAVED</div>
+    <div class="completion-title">Observed.</div>
+    <div class="completion-sub">Territory was met directly. The map-making was paused. This is the deposit that builds self-trust in reading reality.</div>
+    <div class="data-card" style="border-left-color:var(--purple)">
+      <div class="data-card-label">SESSION DATA</div>
+      <div class="data-item"><span class="data-item-bullet" style="color:var(--purple)">▸</span>Aspect: ${a.num} · ${a.name}</div>
+      <div class="data-item"><span class="data-item-bullet" style="color:var(--purple)">▸</span>Practice duration: 2 minutes</div>
+      <div class="data-item"><span class="data-item-bullet" style="color:var(--purple)">▸</span>Observation logged.</div>
+    </div>
+    <button class="btn-primary" style="background:var(--purple);border-color:var(--purple)" onclick="exitSession()">RETURN TO HUB</button>
+    <div class="spacer-bottom"></div>
+  `;
+  window.scrollTo(0, 0);
+}
+
+function startTimer() {
+  if (timerInterval) return;
+  timerRunning = true;
+  renderTerritoryStep();
+  timerInterval = setInterval(() => {
+    timerRemaining--;
+    if (timerRemaining <= 0) {
+      timerRemaining = 0;
+      stopTimer();
+      timerRunning = false;
+      toast('Practice complete');
+      if (navigator.vibrate) navigator.vibrate([200,100,200]);
+      renderTerritoryStep();
+      return;
+    }
+    const display = document.querySelector('.timer-display');
+    if (display) {
+      const mins = Math.floor(timerRemaining / 60);
+      const secs = timerRemaining % 60;
+      display.textContent = String(mins).padStart(2,'0') + ':' + String(secs).padStart(2,'0');
+    }
+  }, 1000);
+}
+
+function pauseTimer() {
+  stopTimer();
+  timerRunning = false;
+  renderTerritoryStep();
+}
+
+function resetTimer() {
+  stopTimer();
+  timerRunning = false;
+  timerRemaining = TERRITORY_DURATION;
+  renderTerritoryStep();
+}
+
+function stopTimer() {
+  if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+}
 
 function renderHistory() {
   const sessions = getSessions().reverse();
   const el = document.getElementById('history-list');
   document.getElementById('history-count').textContent = sessions.length + ' sessions stored';
-
   if (!sessions.length) {
     el.innerHTML = `<div style="font-family:Georgia,serif;font-size:16px;color:var(--dim);font-style:italic;text-align:center;margin-top:60px">No sessions yet.<br>Complete your first session to begin the log.</div><div class="spacer-bottom"></div>`;
     return;
   }
-
-  const phaseColors = { morning: '#B07A1E', interrupt: '#C0392B', record: '#2E7D4F', evening: '#2B6CA3' };
-  const phaseNames = { morning: 'MORNING', interrupt: 'INTERRUPT', record: 'RECORD', evening: 'EVENING' };
-
+  const phaseColors = { morning: '#B07A1E', interrupt: '#C0392B', record: '#2E7D4F', evening: '#2B6CA3', territory: '#6B3FA0' };
+  const phaseNames = { morning: 'MORNING', interrupt: 'INTERRUPT', record: 'RECORD', evening: 'EVENING', territory: 'TERRITORY' };
   el.innerHTML = sessions.map(s => {
     const d = new Date(s.timestamp);
     const dateStr = d.toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric' }).toUpperCase();
     const timeStr = d.toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit' });
-    const color = phaseColors[s.phase] || '#847C6C';
-
-    let preview = '';
+    const color = phaseColors[s.phase] || '#756C5A';
     const ans = s.answers || {};
-    const textKeys = Object.keys(ans).filter(k => typeof ans[k] === 'string' && ans[k].length > 6);
-    if (textKeys.length) preview = ans[textKeys[0]].slice(0, 80) + (ans[textKeys[0]].length > 80 ? '...' : '');
-
+    let preview = '';
+    if (s.phase === 'territory' && ans.aspect_name) {
+      preview = `${ans.aspect_name} · ` + (ans.observation ? ans.observation.slice(0, 70) + (ans.observation.length > 70 ? '...' : '') : '');
+    } else {
+      const textKeys = Object.keys(ans).filter(k => typeof ans[k] === 'string' && ans[k].length > 6);
+      if (textKeys.length) preview = ans[textKeys[0]].slice(0, 80) + (ans[textKeys[0]].length > 80 ? '...' : '');
+    }
     return `<div class="history-entry">
       <div class="history-entry-header">
         <span class="history-phase-badge" style="background:${color};border-color:${color}">${phaseNames[s.phase] || s.phase.toUpperCase()}</span>
@@ -1164,26 +1402,21 @@ function renderHistory() {
   }).join('') + '<div class="spacer-bottom"></div>';
 }
 
-// ═══════════════════════════════════════════════
-// EXPORT
-// ═══════════════════════════════════════════════
-
 function buildExportText() {
   const sessions = getSessions();
   const cutoff = Date.now() - (7 * 24 * 60 * 60 * 1000);
   const week = sessions.filter(s => s.id >= cutoff);
-
   if (!week.length) return 'No sessions in the last 7 days.';
-
-  const phaseNames = { morning: 'MORNING CALIBRATION', interrupt: 'SIGNAL INTERRUPT', record: 'COMPLETION RECORD', evening: 'SEMANTIC AUTOPSY' };
+  const phaseNames = { morning: 'MORNING CALIBRATION', interrupt: 'SIGNAL INTERRUPT', record: 'COMPLETION RECORD', evening: 'SEMANTIC AUTOPSY', territory: 'TERRITORY TRAINING' };
   const stepLabels = {};
   [...MORNING_STEPS, ...INTERRUPT_STEPS, ...RECORD_STEPS, ...EVENING_STEPS].forEach(s => { stepLabels[s.id] = s.label; });
-
+  stepLabels.aspect_num = 'ASPECT NUMBER';
+  stepLabels.aspect_name = 'ASPECT NAME';
+  stepLabels.observation = 'OBSERVATION';
   let out = `GS NERVOUS SYSTEM TRAINING · WEEKLY EXPORT\n`;
   out += `Generated: ${new Date().toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' })}\n`;
   out += `Sessions this week: ${week.length}\n`;
   out += `${'═'.repeat(50)}\n\n`;
-
   week.forEach((s, i) => {
     const d = new Date(s.timestamp);
     const dateStr = d.toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric' });
@@ -1191,7 +1424,6 @@ function buildExportText() {
     out += `SESSION ${i+1}: ${phaseNames[s.phase] || s.phase.toUpperCase()}\n`;
     out += `${dateStr} at ${timeStr}\n`;
     out += `${'─'.repeat(40)}\n`;
-
     const ans = s.answers || {};
     Object.entries(ans).forEach(([key, val]) => {
       const label = stepLabels[key] || key.toUpperCase();
@@ -1201,17 +1433,14 @@ function buildExportText() {
     });
     out += '\n';
   });
-
   out += `${'═'.repeat(50)}\n`;
   out += `PASTE THIS INTO CLAUDE AND REQUEST:\n`;
-  out += `"Build my weekly GS report — pattern analysis, IFD tracking, signal reaction trends, completion evidence (predicted vs. actual cost), which frozen evaluations recurred, and one specific training focus for next week."\n`;
-
+  out += `"Build my weekly GS report — pattern analysis, IFD tracking, signal reaction trends, completion evidence (predicted vs. actual cost), territory training observations, and one specific training focus for next week."\n`;
   return out;
 }
 
 function renderExport() {
-  const text = buildExportText();
-  document.getElementById('export-preview').textContent = text;
+  document.getElementById('export-preview').textContent = buildExportText();
 }
 
 function copyExport() {
@@ -1224,8 +1453,7 @@ function copyExport() {
     ta.style.position = 'fixed';
     ta.style.top = '-9999px';
     document.body.appendChild(ta);
-    ta.focus();
-    ta.select();
+    ta.focus(); ta.select();
     try { document.execCommand('copy'); toast('Copied to clipboard'); }
     catch(e) { toast('Copy failed — use Share instead'); }
     document.body.removeChild(ta);
@@ -1234,16 +1462,9 @@ function copyExport() {
 
 function shareExport() {
   const text = buildExportText();
-  if (navigator.share) {
-    navigator.share({ title: 'GS Weekly Export', text }).catch(() => {});
-  } else {
-    copyExport();
-  }
+  if (navigator.share) { navigator.share({ title: 'GS Weekly Export', text }).catch(() => {}); }
+  else { copyExport(); }
 }
-
-// ═══════════════════════════════════════════════
-// TOAST
-// ═══════════════════════════════════════════════
 
 function toast(msg) {
   const el = document.getElementById('toast');
@@ -1252,27 +1473,18 @@ function toast(msg) {
   setTimeout(() => el.classList.remove('show'), 2200);
 }
 
-// ═══════════════════════════════════════════════
-// INIT
-// ═══════════════════════════════════════════════
-
 function init() {
   const now = new Date();
   const hour = now.getHours();
   const dateStr = now.toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric' }).toUpperCase();
   document.getElementById('hub-date').textContent = dateStr;
-
   let suggested = hour < 10 ? 'morning' : hour >= 18 ? 'evening' : null;
   if (suggested) {
     document.getElementById('now-' + suggested).style.display = 'block';
     document.getElementById('card-' + suggested).classList.add('suggested');
-  } else {
-    document.getElementById('suggested-label').textContent = 'INTERRUPT & RECORD AVAILABLE ANYTIME';
-    document.getElementById('now-interrupt').style.display = 'block';
-    document.getElementById('card-interrupt').classList.add('suggested');
-    document.getElementById('now-record').style.display = 'block';
-    document.getElementById('card-record').classList.add('suggested');
   }
+  renderTerritoryHubCard();
+  renderTerritoryMiniGrid();
 }
 
 init();
